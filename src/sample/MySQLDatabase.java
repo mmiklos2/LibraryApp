@@ -85,6 +85,40 @@ public class MySQLDatabase {
 		return null;
 	}
 
+    /**
+     * getData method with columns name possibility
+     *
+     * @param SQLStatement used for executeQuery()
+     * @param columns      determines if the column names will be returned
+     * @return returns an ArrayList representing the table
+     */
+    public ArrayList<ArrayList<String>> getData(String SQLStatement, boolean columns){
+        ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
+            try {
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery(SQLStatement);
+                ResultSetMetaData rsmd = rs.getMetaData();
+                ArrayList<String> columnNames = new ArrayList<String>();
+                for (int i = 0; i < rsmd.getColumnCount(); i++) {
+                    columnNames.add(rsmd.getColumnName(i + 1));
+                }
+                stmnt = connection.createStatement();
+                rs = stmnt.executeQuery(SQLStatement);
+                while (rs.next()) {
+                    ArrayList<String> row = new ArrayList<String>();
+                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                        row.add(rs.getString(i));
+                    }
+                    table.add(row);
+                }
+                table.add(0, columnNames);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        return table;
+    }
+
 
 	public boolean setData(String SQLStatement, ArrayList<String>values){
 		try {

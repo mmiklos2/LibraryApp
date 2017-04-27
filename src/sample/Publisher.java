@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 
 public class Publisher {
-	public final ObservableValue<Integer> publisher_id;
+	public ObservableValue<Integer> publisher_id;
 	public SimpleStringProperty publisher_name;
 	public SimpleStringProperty publisher_city;
 	
@@ -16,7 +16,7 @@ public class Publisher {
 		publisher_city = new SimpleStringProperty(city);
 
 	}
-	
+
 
 	
 	
