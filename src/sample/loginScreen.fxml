@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #979C9C;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+   <children>
+      <Pane layoutX="202.0" layoutY="91.0" prefHeight="418.0" prefWidth="397.0" style="-fx-background-color: #F2EBC7; -fx-background-radius: 10px;">
+         <children>
+            <TextField layoutX="186.0" layoutY="189.0" />
+            <TextField layoutX="186.0" layoutY="242.0" />
+            <Label layoutX="66.0" layoutY="194.0" text="User:">
+               <font>
+                  <Font name="Helvetica Neue Light" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="66.0" layoutY="244.0" text="Password:">
+               <font>
+                  <Font name="Helvetica Neue Light" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="98.0" fitWidth="105.0" layoutX="146.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@book_icon.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="95.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToRegister" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #962D3E;" text="Sign Up">
+               <font>
+                  <Font name="Helvetica Neue Light" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="204.0" layoutY="310.0" mnemonicParsing="false" onAction="#triggerLogin" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #348899;" text="Sign In">
+               <font>
+                  <Font name="Helvetica Neue Light" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
