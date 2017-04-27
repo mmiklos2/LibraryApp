@@ -9,7 +9,13 @@ public class Author {
 	public Author(){
 		
 	}
-	
+
+	public Author(int author_id, String author_firstname, String author_lastname) {
+		this.author_id = author_id;
+		this.author_firstname = author_firstname;
+		this.author_lastname = author_lastname;
+	}
+
 	public int getAuthor_id() {
 		return author_id;
 	}

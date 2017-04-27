@@ -7,7 +7,12 @@ public class Genres {
 	public Genres(){
 		
 	}
-	
+
+	public Genres(int genre_id, String genre_name) {
+		this.genre_id = genre_id;
+		this.genre_name = genre_name;
+	}
+
 	public int getGenre_id() {
 		return genre_id;
 	}

@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayList;
+
 /**
  * @author Boyz
  */
@@ -11,9 +13,9 @@ public class DetailedBook {
     private String book_location;
     private int book_genre;
     private String publisher_name;
-    private String author;
+    private ArrayList<String> authors;
 
-    public DetailedBook(String book_isbn, String book_title, int book_publisher_year, int book_copies, String book_location, int book_genre, String publisher_name, String author_firstName, String author_lastName) {
+    public DetailedBook(String book_isbn, String book_title, int book_publisher_year, int book_copies, String book_location, int book_genre, String publisher_name, ArrayList<String> authors) {
         this.book_isbn = book_isbn;
         this.book_title = book_title;
         this.book_publisher_year = book_publisher_year;
@@ -21,7 +23,7 @@ public class DetailedBook {
         this.book_location = book_location;
         this.book_genre = book_genre;
         this.publisher_name = publisher_name;
-        this.author = author_firstName + " " + author_lastName;
+        this.authors=authors;;
     }
 
     public int getBook_genre() {
@@ -32,8 +34,8 @@ public class DetailedBook {
         return publisher_name;
     }
 
-    public String getAuthor() {
-        return author;
+    public ArrayList<String> getAuthor() {
+        return authors;
     }
 
     public String getBook_isbn() {

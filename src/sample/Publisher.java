@@ -8,7 +8,13 @@ public class Publisher {
 	public Publisher(){
 		
 	}
-	
+
+	public Publisher(int publisher_id, String publisher_name, String publisher_city) {
+		this.publisher_id = publisher_id;
+		this.publisher_name = publisher_name;
+		this.publisher_city = publisher_city;
+	}
+
 	public int getPublisher_id() {
 		return publisher_id;
 	}
