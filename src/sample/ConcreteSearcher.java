@@ -98,17 +98,21 @@ public class ConcreteSearcher {
         if (booksSearched) {
             for(int i=1;i<queryResponse.size();i++) {
                 aBook = new Books(Integer.parseInt(queryResponse.get(i).get(0)), queryResponse.get(i).get(1), queryResponse.get(i).get(2), Integer.parseInt(queryResponse.get(i).get(3)), Integer.parseInt(queryResponse.get(i).get(4)), Integer.parseInt(queryResponse.get(i).get(5)), queryResponse.get(i).get(6), Integer.parseInt(queryResponse.get(i).get(7)));
+
                 ArrayList<ArrayList<String>> publisherData = db.getData("SELECT * FROM publisher WHERE publisher_id = " + aBook.getBook_publisher_id() + ";", true);
                 aPublisher=new Publisher(Integer.parseInt(publisherData.get(1).get(0)), publisherData.get(1).get(1), publisherData.get(1).get(2));
+
                 ArrayList<ArrayList<String>> genreData = db.getData("SELECT * FROM genre WHERE genre_id = " + aBook.getBook_genre_id() + ";", true);
                 aGenre=new Genres(Integer.parseInt(genreData.get(1).get(0)), genreData.get(1).get(1));
-                ArrayList<ArrayList<String>> author_bookData=db.getData("SELECT * FROM author_book WHERE book_id = "+ aBook.getBook_id() +";", true);
+
+                ArrayList<ArrayList<String>> author_bookData=db.getData("SELECT author_id FROM author_book WHERE book_id = "+ aBook.getBook_id() +";", true);
                 anAuthor_book=new Author_Book(Integer.parseInt(author_bookData.get(1).get(0)), Integer.parseInt(author_bookData.get(1).get(1)));
-                ArrayList<ArrayList<String>> authorData=db.getData("SELECT author_id FROM author WHERE book_id = "+anAuthor_book.getBook_id()+";",true);
+
+                ArrayList<ArrayList<String>> authorData=db.getData("SELECT * FROM author WHERE author_id = "+anAuthor_book.getAuthor_id()+";",true);
                 ArrayList<String> authorNames=new ArrayList<>();
                 anAuthor=new Author(Integer.parseInt(authorData.get(1).get(0)), authorData.get(1).get(1), authorData.get(1).get(2));
                 authorNames.add(anAuthor.getAuthor_firstname()+" "+anAuthor.getAuthor_lastname());
-
+                // ITERATE THROUGH POSSIBLE AUTHORS With FOR LOOP AND CREATE A NEW AUTHOR FULLNAME EVERY TIME YOU FIND ONE, PASS ARRAYLIST TO ADETAILEDBOOK
                 //aBook=new DetailedBook(queryResponse.get(1).get(1), queryResponse.get(1).get(2), queryResponse.get(1).get(4), queryResponse.get(1).get(5), queryResponse.get(1).get(6),);
             }
         }
