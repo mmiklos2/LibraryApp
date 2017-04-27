@@ -80,7 +80,7 @@ public class ScreensController extends StackPane{
             return false;
         }
     }
-
+    
     public boolean unloadScreen(String name) {
         if(screens.remove(name) == null) {
             System.out.println("Screen didn't exist");
