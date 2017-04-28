@@ -29,6 +29,10 @@ public class LoginController implements Initializable, ControlledScreen{
 
     public void triggerLogin(ActionEvent actionEvent) {
         // PERFORM AUTHENTICATION
-        myController.setScreen(Main.USER_SCREEN);
+        boolean librarian = true;
+        if(!librarian)
+            myController.setScreen(Main.USER_SCREEN);
+        else
+            myController.setScreen(Main.LIBRARIAN_SCREEN);
     }
 }

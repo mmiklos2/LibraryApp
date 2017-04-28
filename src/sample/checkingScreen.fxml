@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CheckingController">
+    <children>
+        <Pane layoutX="24.0" layoutY="50.0" prefHeight="189.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Username" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="175.0" layoutY="12.0" />
+                <TextField layoutX="175.0" layoutY="48.0" />
+                <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0" />
+                    </font>
+                </Label>
+              <Button layoutX="14.0" layoutY="137.0" mnemonicParsing="false" onAction="#goBack" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Go Back" textFill="WHITE">
+                  <font>
+                      <Font name="Helvetica Neue Light" size="16.0" />
+                  </font>
+              </Button>
+            <Button layoutX="242.0" layoutY="137.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Return" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue Light" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="129.0" layoutY="137.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Loan" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue Light" size="16.0" />
+               </font>
+            </Button>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

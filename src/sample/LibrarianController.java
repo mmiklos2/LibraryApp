@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserController implements Initializable, ControlledScreen {
-
+/**
+ * Created by lukacrnjakovic on 4/28/17.
+ */
+public class LibrarianController implements Initializable, ControlledScreen{
     ScreensController myController;
     private List<Publisher> list = null;
     private TableView<Publisher> table = null;
@@ -51,7 +53,7 @@ public class UserController implements Initializable, ControlledScreen {
     private ArrayList<Publisher> createList(){
         ArrayList<Publisher> rak = new ArrayList<>();
         for(int i = 0; i<=100; i++){
-            Publisher p = new Publisher(i, "Name " + i, "City " + i);
+            Publisher p = new Publisher(i, "DIK " + i, "City " + i);
             rak.add(p);
         }
 
@@ -89,6 +91,11 @@ public class UserController implements Initializable, ControlledScreen {
         return new Pane(table);
     }
 
+    public void addBook(ActionEvent actionEvent) {
+        myController.setScreen(Main.ADDING_SCREEN);
+    }
 
-
+    public void performCheckOut(ActionEvent actionEvent) {
+        myController.setScreen(Main.CHECKING_SCREEN);
+    }
 }
