@@ -62,4 +62,10 @@ public class DetailedBook {
         return book_location;
     }
 
+    public void printInfo(){
+       System.out.println("AUTHOR:  "+" PUBLISHER:  "+" TITLE:  "+ " GENRE: "+" PUBLISHER YEAR: "+" COPIES: "+"  LOCATION:  "+ " ISBN:  ");
+       System.out.println(getAuthor().getValue()+"   "+getPublisher_name().getValue()+"   "+getBook_title().getValue()+"   "+getBook_genre().getValue()+"   "+getBook_publisher_year()+"   "+getBook_copies()+"   "+getBook_location().getValue()+" "+getBook_isbn().getValue());
+
+    }
+
 }
