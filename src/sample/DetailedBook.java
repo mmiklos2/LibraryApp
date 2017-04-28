@@ -72,4 +72,9 @@ public class DetailedBook {
 
     }
 
+    public SimpleStringProperty getDateDue() {
+        return dateDue;
+    }
+
+
 }
