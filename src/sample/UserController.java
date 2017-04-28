@@ -6,11 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -25,6 +23,9 @@ public class UserController implements Initializable, ControlledScreen {
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
+
+    @FXML
+    private TextField searchText;
 
     @FXML
     private ComboBox comboBox;
@@ -42,6 +43,21 @@ public class UserController implements Initializable, ControlledScreen {
     }
 
     public void buildSearch(ActionEvent actionEvent) {
+        TableBuilder tb = new TableBuilder();
+        String textValue;
+        String comboValue;
+        if(comboBox.getValue() != null){
+            textValue = searchText.getText();
+            comboValue = comboBox.getValue().toString();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select area!");
+            alert.showAndWait();
+            return;
+        }
 
         Connection conect=null;
         MySQLDatabase con= new MySQLDatabase("root","password","localhost","3306", "mydb");
@@ -53,56 +69,13 @@ public class UserController implements Initializable, ControlledScreen {
 
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
-        list = cs.search("dible", "publisher");
+        System.out.println(textValue + ", " + comboValue);
+        list = cs.search(textValue, comboValue);
         System.out.println("Size : " + list.size());
-        table = createTable();
+        table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
-    }
-
-    private TableView<DetailedBook> createTable(){
-        TableView<DetailedBook> table = new TableView<>();
-
-        TableColumn<DetailedBook, String> column1 = new TableColumn<>("ISBN");
-        column1.setCellValueFactory(param -> param.getValue().getBook_isbn());
-        column1.setPrefWidth(125);
-
-        TableColumn<DetailedBook, String> column2 = new TableColumn<>("Title");
-        column2.setCellValueFactory(param -> param.getValue().getBook_title());
-        column2.setPrefWidth(100);
-
-        TableColumn<DetailedBook, String> column3 = new TableColumn<>("Author(s)");
-        column3.setCellValueFactory(param -> param.getValue().getAuthor());
-        column3.setPrefWidth(100);
-
-        TableColumn<DetailedBook, String> column4 = new TableColumn<>("Year");
-        column4.setCellValueFactory(param -> param.getValue().getBook_publisher_year());
-        column4.setPrefWidth(50);
-
-        TableColumn<DetailedBook, String> column5 = new TableColumn<>("Copies");
-        column5.setCellValueFactory(param -> param.getValue().getBook_copies());
-        column5.setPrefWidth(75);
-
-        TableColumn<DetailedBook, String> column6 = new TableColumn<>("Location");
-        column6.setCellValueFactory(param -> param.getValue().getBook_location());
-        column6.setPrefWidth(100);
-
-        TableColumn<DetailedBook, String> column7 = new TableColumn<>("Genre");
-        column7.setCellValueFactory(param -> param.getValue().getBook_genre());
-        column7.setPrefWidth(100);
-
-        TableColumn<DetailedBook, String> column8 = new TableColumn<>("Publisher");
-        column8.setCellValueFactory(param -> param.getValue().getPublisher_name());
-        column8.setPrefWidth(100);
-
-        table.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8);
-
-        table.setFixedCellSize(25);
-        table.prefHeightProperty().bind(table.fixedCellSizeProperty().multiply(Bindings.size(table.getItems()).add(11.1)));
-        table.minHeightProperty().bind(table.prefHeightProperty());
-        table.maxHeightProperty().bind(table.prefHeightProperty());
-        return table;
     }
 
     private Node createPage(int pageIndex){

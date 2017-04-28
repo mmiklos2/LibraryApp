@@ -41,7 +41,7 @@ public class ConcreteSearcher {
         boolean authorsSearched = false;
         boolean genresSearched = false;
         String finalQuery = "SELECT";
-        if (typeOfSearch.equals("book")) {
+        if (typeOfSearch.equals("Titles")) {
             finalQuery += " * FROM books WHERE(";
             for (int i = 0; i < searchTerms.length; i++) {
                 if (!firstRun) {
@@ -56,7 +56,7 @@ public class ConcreteSearcher {
             firstRun = true;
             finalQuery += ");";
             booksSearched = true;
-        } else if (typeOfSearch.equals("publisher")) {
+        } else if (typeOfSearch.equals("Publishers")) {
             finalQuery += "* FROM publisher WHERE(";
             for (int i = 0; i < searchTerms.length; i++) {
                 if (!firstRun) {
@@ -70,7 +70,7 @@ public class ConcreteSearcher {
             firstRun = true;
             finalQuery += ");";
             publishersSearched = true;
-        } else if (typeOfSearch.equals("genre")) {
+        } else if (typeOfSearch.equals("Genres")) {
             finalQuery += "* FROM genres WHERE(";
             for (int i = 0; i < searchTerms.length; i++) {
                 if (!firstRun) {
@@ -83,7 +83,7 @@ public class ConcreteSearcher {
             firstRun = true;
             finalQuery += ");";
             genresSearched = true;
-        } else if (typeOfSearch.equals("author")) {
+        } else if (typeOfSearch.equals("Authors")) {
             finalQuery += "* FROM author WHERE(";
             for (int i = 0; i < searchTerms.length; i++) {
                 if (!firstRun) {
