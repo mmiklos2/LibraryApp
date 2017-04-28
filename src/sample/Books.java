@@ -27,6 +27,16 @@ public class Books {
 		this.book_genre_id = book_genre_id;
 	}
 
+	public Books( String book_isbn, String book_title, int book_publisher_id, int book_publisher_year, int book_copies, String book_location, int book_genre_id) {
+
+		this.book_isbn = book_isbn;
+		this.book_title = book_title;
+		this.book_publisher_id = book_publisher_id;
+		this.book_publisher_year = book_publisher_year;
+		this.book_copies = book_copies;
+		this.book_location = book_location;
+		this.book_genre_id = book_genre_id;
+	}
 	public int getBook_id() {
 		return book_id;
 	}

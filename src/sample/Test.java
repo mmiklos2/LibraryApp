@@ -40,7 +40,7 @@ public class Test {
 		*/
 		sc.close();
 		
-		MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "library");
+		MySQLDatabase con= new MySQLDatabase("root","knjiga007","127.0.0.1","3306", "mydb");
 
 		if(con.connect(conect)){
 			System.out.println("Connected!");
@@ -50,12 +50,29 @@ public class Test {
 			
 		}
 
-		ConcreteSearcher cs=new ConcreteSearcher(con);
+		/**ConcreteSearcher cs=new ConcreteSearcher(con);
 		ArrayList<DetailedBook>dbs = cs.search("dible", "publisher");
         for(DetailedBook dbsa: dbs){
             dbsa.printInfo();
-        }
-		
+        }*/
+		try {
+			con.postP();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			con.rollbackTrans();
+		}
+		/**try {
+			con.setBook_On_Loan();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		 con.rollbackTrans();
+		}*/
+		try {
+			con.deleteP();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			con.rollbackTrans();
+		}
 		if(con.closeConnection()){
 			System.out.println("connect closed ");
 		}else{

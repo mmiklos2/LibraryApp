@@ -10,6 +10,11 @@ public class Author {
 		
 	}
 
+	public Author( String author_firstname, String author_lastname) {
+
+		this.author_firstname = author_firstname;
+		this.author_lastname = author_lastname;
+	}
 	public Author(int author_id, String author_firstname, String author_lastname) {
 		this.author_id = author_id;
 		this.author_firstname = author_firstname;

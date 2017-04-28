@@ -13,6 +13,11 @@ public class MySQLDatabase {
 	private static String port="";
 	private static String server="";
 	private static String dbName="";
+	Publisher pb = new Publisher("sdfgh","sdfg");
+	Genres gr= new Genres("gfd");
+	Author at= new Author("m,kju","asd");
+	Books bk;
+	User ur= new User("lxc8852", "lxc8852@g.rit.edu", "crnilegenda", "Luka", "Crnjakovic");
 
 	public MySQLDatabase(String _username,String _password, String _server, String _port, String _dbName){
 		username=_username;
@@ -207,6 +212,153 @@ public class MySQLDatabase {
         catch(SQLException sqle){
         }
     }
+	public void postP() throws SQLException {
+    startTrans();
+		//////////////////////// FOR PUBLISHER select
+		ArrayList<ArrayList<String>> results = null;
+		ArrayList<ArrayList<String>> results1 = null;
+		ArrayList<String> publish = new ArrayList<>();
+		///////////////
+
+		/////////////COLEECTIONS
+		ArrayList<String> collection_Books= new ArrayList<>();
+		ArrayList<String> collection_Author= new ArrayList<>();
+		ArrayList<String> collection_Publisher= new ArrayList<>();
+		ArrayList<String> collection_genre= new ArrayList<>();
+		///////////////////
+		boolean setDataReturnValue = false;
+		////////////////////////////////////////////////////////////////
+
+		//////////////////PUBLISHER INSERT
+		collection_Publisher.add(pb.getPublisher_name());
+		collection_Publisher.add(pb.getPublisher_city());
+		/////////////////////////////////////////////////
+
+		///////////////GENRE INSERT
+		collection_genre.add(gr.getGenre_name());
+		/////////////////////////
+
+		////////////AUTHOR INSERT
+		collection_Author.add(at.getAuthor_firstname());
+		collection_Author.add(at.getAuthor_lastname());
+		/////////////////////////////////////////////
+
+		/////PUBLISHER
+		System.out.println(collection_Publisher);
+		setDataReturnValue = setData("INSERT INTO publisher ( publisher_name, publisher_city) VALUES( ?, ?)", collection_Publisher, false);
+		///////
+
+		////GENRE
+		String genre = "INSERT INTO genres (genre_name)" + " VALUES (?);";
+		setDataReturnValue = setData(genre, collection_genre, false);
+		///////WORKS
+
+		///////////SELECTS FOR PUBLISHER
+		System.out.println(pb.getPublisher_name());
+		publish.add(pb.getPublisher_name());
+		String st = "SELECT publisher_id "
+				+ "FROM publisher WHERE publisher_name = ?;";
+		results = getData(st, publish,false);
+		int book_pub_id=Integer.parseInt(results.get(1).get(0));
+		System.out.println(results.get(1).get(0));
+		/////////
+
+		////BOOKS INSERT
+		bk= new Books("1234656","rghsdff 5342",book_pub_id,1234,534,"gfdnhfgnhg",gr.getGenre_id());
+		String genr= "SELECT genre_id from genres where genre_name=?";
+		results1=getData(genr,collection_genre,false);
+
+		collection_Books.add(bk.getBook_isbn());
+		collection_Books.add(bk.getBook_title());
+		collection_Books.add(Integer.toString(book_pub_id));
+		collection_Books.add(Integer.toString(bk.getBook_publisher_year()));
+		collection_Books.add(Integer.toString(bk.getBook_copies()));
+		collection_Books.add(bk.getBook_location());
+
+		collection_Books.add(results1.get(1).get(0));
+		//////////
+
+		///////////BOOKS
+		String books = "INSERT INTO books ( book_isbn, book_title, book_publisher_id, book_published_year, book_copies, book_location, book_genre_id)"
+				+ " VALUES ( ?, ?, ?, ?, ?, ?, ?);";
+		setDataReturnValue = setData(books, collection_Books,false);
+		/////////////////
+
+		/////////////AUTHOR
+		String author = "INSERT INTO author ( author_firstname, author_lastname)"
+				+ " VALUES (?, ?);";
+
+		setDataReturnValue = setData(author, collection_Author, false);
+		//////////////////
+		if(setDataReturnValue){
+			System.out.println("works");
+		}
+		else{
+			System.out.println("0 rows found!");
+		}
+    endTrans();
+	}
+
+	public void setBook_On_Loan()throws SQLException{
+        startTrans();
+		boolean setDataReturnValue= false;
+		ArrayList<String> values= new ArrayList<>();
+		ArrayList<ArrayList<String>> results= null;
+		ArrayList<ArrayList<String>> results1= null;
+		ArrayList<String> geto= new ArrayList<>();
+		ArrayList<String> wurf= new ArrayList<>();
+		geto.add(bk.getBook_isbn());
+		String book_isbn= "SELECT book_id FROM books where book_isbn=?";
+
+		results= getData(book_isbn,geto,false);
+		values.add(results.get(1).get(0));
+		wurf.add(ur.getUser_username());
+		String user_id= "SELECT user_id FROM user where user_username=?";
+		results1= getData(user_id,wurf,false);
+		values.add(results1.get(1).get(0));
+		values.add("2017-05-17 10:01:00.999999");
+		values.add("0");
+		String inst= "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) "+ "VALUES(?, ?, ?, ?)";
+		setDataReturnValue=setData(inst, values, false);
+		if(setDataReturnValue){
+			System.out.println("works");
+		}
+		else{
+			System.out.println("0 rows found!");
+		}
+		endTrans();
+	}
+	public void deleteP() throws SQLException
+	{   startTrans();
+		boolean dataFound = false;
+		ArrayList<String> values = new ArrayList<>();
+		ArrayList<ArrayList<String>> results= null;
+		ArrayList<ArrayList<String>> results1= null;
+		ArrayList<String> geto= new ArrayList<>();
+		ArrayList<String> wurf= new ArrayList<>();
+		String book_isbn= "SELECT book_id FROM books where book_isbn=?";
+		geto.add(bk.getBook_isbn());
+		results= getData(book_isbn,geto,false);
+		values.add(results.get(1).get(0));
+		wurf.add(ur.getUser_username());
+		String user_id= "SELECT user_id FROM user where user_username=?";
+
+		results1= getData(user_id,wurf,false);
+		values.add(results1.get(1).get(0));
+
+			dataFound = setData("DELETE FROM books_on_loan WHERE book_id=? AND user_id=?", values,false);
+
+
+		if (dataFound)
+		{
+			System.out.println("Rows deleted successfully");
+		}
+		else
+		{
+			System.out.println("No rows were found!");
+		}
+		endTrans();
+	}
 
 }
 		
