@@ -13,7 +13,7 @@
     <children>
         <Pane layoutX="36.0" layoutY="32.0" prefHeight="156.0" prefWidth="355.0" style="-fx-background-color: #343642;">
             <children>
-                <TextField layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0" />
+                <TextField fx:id="searchText" layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0" />
                 <Label layoutX="52.0" layoutY="26.0" text="Search for: " textFill="WHITE">
                     <font>
                         <Font name="Helvetica Neue Light" size="18.0" />

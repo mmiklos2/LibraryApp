@@ -161,9 +161,7 @@ public class MySQLDatabase {
 		PreparedStatement prepStmt = null;
 		try {
 			prepStmt = connection.prepareStatement(SQLStatement);
-			System.out.println(SQLStatement);
 			for (int i = 1; i <= values.size(); i++) {
-			    System.out.println(values.get(i-1));
 			    if(search)
 				    prepStmt.setString(i, "%"+values.get(i-1)+"%");
 			    else
