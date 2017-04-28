@@ -100,11 +100,6 @@ public class ConcreteSearcher {
             }
 
         ArrayList<ArrayList<String>> queryResponse = db.getData(finalQuery, values, true);
-        System.out.println(queryResponse.size() + "QR");
-        System.out.println(queryResponse.get(0).size() + "QR");
-        for(String s:queryResponse.get(0)){
-            System.out.println(s);
-        }
         // if a search for books has been done
         if (booksSearched) {
             for (int i = 1; i < queryResponse.size(); i++) {
@@ -172,19 +167,16 @@ public class ConcreteSearcher {
         else{
             values.add(userName);
             ArrayList<ArrayList<String>> userData=db.getData("SELECT * FROM user WHERE user_username = ?;", values,false);
-            System.out.println(userData.size()+" sve");
             if(userData.size()>1){
                 User aUser=new User(Integer.parseInt(userData.get(1).get(0)), userData.get(1).get(1), userData.get(1).get(2), userData.get(1).get(3), userData.get(1).get(4), userData.get(1).get(5));
-                System.out.println(userData.size()+" sve");
                 ArrayList<ArrayList<String>> books_on_loanData = db.getData("SELECT * FROM books_on_loan where user_id = "+ aUser.getUser_id() +";", true);
-                System.out.println(books_on_loanData.size()+" sve");
                 for(int i=1;i<books_on_loanData.size();i++){
                     ArrayList<ArrayList<String>> booksData=db.getData("SELECT * FROM books WHERE book_id = "+ books_on_loanData.get(i).get(0) +"", true);
                     aBook = new Books(Integer.parseInt(booksData.get(i).get(0)), booksData.get(i).get(1), booksData.get(i).get(2), Integer.parseInt(booksData.get(i).get(3)), Integer.parseInt(booksData.get(i).get(4)), Integer.parseInt(booksData.get(i).get(5)), booksData.get(i).get(6), Integer.parseInt(booksData.get(i).get(7)));
                     aGenre=getGenres(aBook);
                     aPublisher=getPublisher(aBook);
                     authorList=getAuthorList(aBook);
-                    DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty((books_on_loanData.get(i).get(2))));
+                    DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty((books_on_loanData.get(i).get(2)).substring(0, 10)));
                     for(int j=0; j<searchTerms.length;j++){
                         if(aDetailedBook.getBook_isbn().getValue().contains(searchTerms[j]) ||  aDetailedBook.getBook_genre().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_title().getValue().contains(searchTerms[j]) || aDetailedBook.getPublisher_name().getValue().contains(searchTerms[j]) || aDetailedBook.getAuthor().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_publisher_year().getValue().contains(searchTerms[j]))
                             returnedBooks.add(aDetailedBook);
@@ -213,14 +205,11 @@ public class ConcreteSearcher {
         for (int k = 1; k < author_bookData.size(); k++) {
             Author_Book anAuthor_book = new Author_Book(Integer.parseInt(author_bookData.get(k).get(0)), Integer.parseInt(author_bookData.get(k).get(1)));
             ArrayList<ArrayList<String>> authorData = db.getData("SELECT * FROM author WHERE author_id = " + anAuthor_book.getAuthor_id() + ";", true);
-           // System.out.println(authorData.get(0).get(0)+ authorData.get(0).get(1)+ authorData.get(0).get(2));
-           // System.out.println(authorData.size()+" AD");
             Author anAuthor = new Author(Integer.parseInt(authorData.get(1).get(0)), authorData.get(1).get(1), authorData.get(1).get(2));
             authorList += anAuthor.getAuthor_firstname() + " " + anAuthor.getAuthor_lastname();
             if (k + 1 < author_bookData.size())
                 authorList += ", ";
         }
-        System.out.println(authorList);
         return authorList;
     }
 
