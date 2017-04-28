@@ -210,7 +210,7 @@ public class MySQLDatabase {
         catch(SQLException sqle){
         }
     }
-	public void postP() throws SQLException {
+	public void postP(String book_Title, String book_ISBN, String book_YearofPublication, String book_Copies, String book_Location, String publisher_Name, String publisher_City, String genre_Name, String author_FirstName, String author_LastName) throws SQLException {
     startTrans();
 		//////////////////////// FOR PUBLISHER select
 		ArrayList<ArrayList<String>> results = null;
@@ -228,21 +228,21 @@ public class MySQLDatabase {
 		////////////////////////////////////////////////////////////////
 
 		//////////////////PUBLISHER INSERT
-		collection_Publisher.add(pb.getPublisher_name());
-		collection_Publisher.add(pb.getPublisher_city());
+		collection_Publisher.add(publisher_Name);
+		collection_Publisher.add(publisher_City);
 		/////////////////////////////////////////////////
 
 		///////////////GENRE INSERT
-		collection_genre.add(gr.getGenre_name());
+		collection_genre.add(genre_Name);
 		/////////////////////////
 
 		////////////AUTHOR INSERT
-		collection_Author.add(at.getAuthor_firstname());
-		collection_Author.add(at.getAuthor_lastname());
+		collection_Author.add(author_FirstName);
+		collection_Author.add(author_LastName);
 		/////////////////////////////////////////////
 
 		/////PUBLISHER
-		System.out.println(collection_Publisher);
+
 		setDataReturnValue = setData("INSERT INTO publisher ( publisher_name, publisher_city) VALUES( ?, ?)", collection_Publisher, false);
 		///////
 
@@ -252,13 +252,13 @@ public class MySQLDatabase {
 		///////WORKS
 
 		///////////SELECTS FOR PUBLISHER
-		System.out.println(pb.getPublisher_name());
-		publish.add(pb.getPublisher_name());
+
+		publish.add(publisher_Name);
 		String st = "SELECT publisher_id "
 				+ "FROM publisher WHERE publisher_name = ?;";
 		results = getData(st, publish,false);
 		int book_pub_id=Integer.parseInt(results.get(1).get(0));
-		System.out.println(results.get(1).get(0));
+
 		/////////
 
 		////BOOKS INSERT
@@ -266,12 +266,12 @@ public class MySQLDatabase {
 		String genr= "SELECT genre_id from genres where genre_name=?";
 		results1=getData(genr,collection_genre,false);
 
-		collection_Books.add(bk.getBook_isbn());
-		collection_Books.add(bk.getBook_title());
+		collection_Books.add(book_ISBN);
+		collection_Books.add(book_Title);
 		collection_Books.add(Integer.toString(book_pub_id));
-		collection_Books.add(Integer.toString(bk.getBook_publisher_year()));
-		collection_Books.add(Integer.toString(bk.getBook_copies()));
-		collection_Books.add(bk.getBook_location());
+		collection_Books.add(book_YearofPublication);
+		collection_Books.add(book_Copies);
+		collection_Books.add(book_Location);
 
 		collection_Books.add(results1.get(1).get(0));
 		//////////
