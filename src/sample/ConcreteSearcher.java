@@ -171,24 +171,27 @@ public class ConcreteSearcher {
         }
         else{
             values.add(userName);
-            System.out.println(values.get(0));
-            ArrayList<ArrayList<String>> userData=db.getData("SELECT * FROM user WHERE user_username = ?;", values,true);
+            ArrayList<ArrayList<String>> userData=db.getData("SELECT * FROM user WHERE user_username = ?;", values,false);
+            System.out.println(userData.size()+" sve");
             if(userData.size()>1){
-            User aUser=new User(Integer.parseInt(userData.get(1).get(0)), userData.get(1).get(1), userData.get(1).get(2), userData.get(1).get(3), userData.get(1).get(4), userData.get(1).get(5));
-            ArrayList<ArrayList<String>> books_on_loanData = db.getData("SELECT * FROM books_on_loan where user_id = "+ aUser.getUser_id() +";", true);
-            for(int i=1;i<books_on_loanData.size();i++){
-                ArrayList<ArrayList<String>> booksData=db.getData("SELECT * FROM books WHERE book_id = "+ books_on_loanData.get(i).get(0) +"", true);
-                aBook = new Books(Integer.parseInt(booksData.get(i).get(0)), booksData.get(i).get(1), booksData.get(i).get(2), Integer.parseInt(booksData.get(i).get(3)), Integer.parseInt(booksData.get(i).get(4)), Integer.parseInt(booksData.get(i).get(5)), booksData.get(i).get(6), Integer.parseInt(booksData.get(i).get(7)));
-                aGenre=getGenres(aBook);
-                aPublisher=getPublisher(aBook);
-                authorList=getAuthorList(aBook);
-                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty((books_on_loanData.get(i).get(2))));
-                for(int j=0; j<searchTerms.length;j++){
-                    if(aDetailedBook.getBook_isbn().getValue().contains(searchTerms[j]) ||  aDetailedBook.getBook_genre().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_title().getValue().contains(searchTerms[j]) || aDetailedBook.getPublisher_name().getValue().contains(searchTerms[j]) || aDetailedBook.getAuthor().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_publisher_year().getValue().contains(searchTerms[j]))
-                        returnedBooks.add(aDetailedBook);
-                }
+                User aUser=new User(Integer.parseInt(userData.get(1).get(0)), userData.get(1).get(1), userData.get(1).get(2), userData.get(1).get(3), userData.get(1).get(4), userData.get(1).get(5));
+                System.out.println(userData.size()+" sve");
+                ArrayList<ArrayList<String>> books_on_loanData = db.getData("SELECT * FROM books_on_loan where user_id = "+ aUser.getUser_id() +";", true);
+                System.out.println(books_on_loanData.size()+" sve");
+                for(int i=1;i<books_on_loanData.size();i++){
+                    ArrayList<ArrayList<String>> booksData=db.getData("SELECT * FROM books WHERE book_id = "+ books_on_loanData.get(i).get(0) +"", true);
+                    aBook = new Books(Integer.parseInt(booksData.get(i).get(0)), booksData.get(i).get(1), booksData.get(i).get(2), Integer.parseInt(booksData.get(i).get(3)), Integer.parseInt(booksData.get(i).get(4)), Integer.parseInt(booksData.get(i).get(5)), booksData.get(i).get(6), Integer.parseInt(booksData.get(i).get(7)));
+                    aGenre=getGenres(aBook);
+                    aPublisher=getPublisher(aBook);
+                    authorList=getAuthorList(aBook);
+                    DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty((books_on_loanData.get(i).get(2))));
+                    for(int j=0; j<searchTerms.length;j++){
+                        if(aDetailedBook.getBook_isbn().getValue().contains(searchTerms[j]) ||  aDetailedBook.getBook_genre().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_title().getValue().contains(searchTerms[j]) || aDetailedBook.getPublisher_name().getValue().contains(searchTerms[j]) || aDetailedBook.getAuthor().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_publisher_year().getValue().contains(searchTerms[j]))
+                            returnedBooks.add(aDetailedBook);
+                    }
 
-            }}
+                }
+            }
 
         }
         return returnedBooks;
