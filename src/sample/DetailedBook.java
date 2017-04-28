@@ -20,8 +20,9 @@ public class DetailedBook {
     private SimpleStringProperty book_genre;
     private SimpleStringProperty publisher_name;
     private SimpleStringProperty authors;
+    private SimpleStringProperty dateDue;
 
-    public DetailedBook(SimpleStringProperty book_isbn, SimpleStringProperty book_title, int book_publisher_year, int book_copies, SimpleStringProperty book_location, SimpleStringProperty book_genre, SimpleStringProperty publisher_name, SimpleStringProperty authors) {
+    public DetailedBook(SimpleStringProperty book_isbn, SimpleStringProperty book_title, int book_publisher_year, int book_copies, SimpleStringProperty book_location, SimpleStringProperty book_genre, SimpleStringProperty publisher_name, SimpleStringProperty authors, SimpleStringProperty dateDue) {
         this.book_isbn = book_isbn;
         this.book_title = book_title;
         this.book_publisher_year = new SimpleStringProperty(Integer.toString(book_publisher_year));
@@ -30,6 +31,7 @@ public class DetailedBook {
         this.book_genre = book_genre;
         this.publisher_name = publisher_name;
         this.authors=authors;
+        this.dateDue=dateDue;
     }
 
     public SimpleStringProperty getBook_genre() {

@@ -25,9 +25,8 @@ public class ConcreteSearcher {
     }
 
 
-    public ArrayList<DetailedBook> search(String searchInput, String typeOfSearch) {
+    public ArrayList<DetailedBook> search(String searchInput, String typeOfSearch, boolean onLoan, String userName) {
         String[] searchTerms = searchInput.split(" ");
-        System.out.println("Search terms "+searchTerms.length);
         ArrayList<String> values = new ArrayList<>();
         ArrayList<DetailedBook> returnedBooks = new ArrayList<>();
         Books aBook = null;
@@ -40,62 +39,85 @@ public class ConcreteSearcher {
         boolean publishersSearched = false;
         boolean authorsSearched = false;
         boolean genresSearched = false;
+        String authorList = "";
         String finalQuery = "SELECT";
-        if (typeOfSearch.equals("book")) {
-            finalQuery += " * FROM books WHERE(";
-            for (int i = 0; i < searchTerms.length; i++) {
-                if (!firstRun) {
-                    finalQuery += " AND ";
+        if (!onLoan) {
+            if (typeOfSearch.equals("book")) {
+                finalQuery += " * FROM books WHERE(";
+                for (int i = 0; i < searchTerms.length; i++) {
+                    if (!firstRun) {
+                        finalQuery += " AND ";
+                    }
+                    firstRun = false;
+                    finalQuery += " ( book_isbn LIKE ? ) OR ( book_title LIKE ? ) OR ( book_published_year LIKE ? ) ";
+                    values.add(searchTerms[i]);
+                    values.add(searchTerms[i]);
+                    values.add(searchTerms[i]);
                 }
-                firstRun = false;
-                finalQuery += " ( book_isbn LIKE ? ) OR ( book_title LIKE ? ) OR ( book_published_year LIKE ? ) ";
-                values.add(searchTerms[i]);
-                values.add(searchTerms[i]);
-                values.add(searchTerms[i]);
-            }
-            firstRun = true;
-            finalQuery += ");";
-            booksSearched = true;
-        } else if (typeOfSearch.equals("publisher")) {
-            finalQuery += "* FROM publisher WHERE(";
-            for (int i = 0; i < searchTerms.length; i++) {
-                if (!firstRun) {
-                    finalQuery += " AND ";
+                firstRun = true;
+                finalQuery += ");";
+                booksSearched = true;
+            } else if (typeOfSearch.equals("publisher")) {
+                finalQuery += " * FROM publisher WHERE(";
+                for (int i = 0; i < searchTerms.length; i++) {
+                    if (!firstRun) {
+                        finalQuery += " AND ";
+                    }
+                    firstRun = false;
+                    finalQuery += " ( publisher_name LIKE ? ) OR ( publisher_city LIKE ? ) ";
+                    values.add(searchTerms[i]);
+                    values.add(searchTerms[i]);
                 }
-                firstRun = false;
-                finalQuery += " ( publisher_name LIKE ? ) OR ( publisher_city LIKE ? ) ";
-                values.add(searchTerms[i]);
-                values.add(searchTerms[i]);
-            }
-            firstRun = true;
-            finalQuery += ");";
-            publishersSearched = true;
-        } else if (typeOfSearch.equals("genre")) {
-            finalQuery += "* FROM genres WHERE(";
-            for (int i = 0; i < searchTerms.length; i++) {
-                if (!firstRun) {
-                    finalQuery += " AND ";
+                firstRun = true;
+                finalQuery += ");";
+                publishersSearched = true;
+            } else if (typeOfSearch.equals("genre")) {
+                finalQuery += " * FROM genres WHERE(";
+                for (int i = 0; i < searchTerms.length; i++) {
+                    if (!firstRun) {
+                        finalQuery += " AND ";
+                    }
+                    firstRun = false;
+                    finalQuery += " ( genre_name LIKE ? ) ";
+                    values.add(searchTerms[i]);
                 }
-                firstRun = false;
-                finalQuery += " ( genre_name LIKE ? ) ";
-                values.add(searchTerms[i]);
-            }
-            firstRun = true;
-            finalQuery += ");";
-            genresSearched = true;
-        } else if (typeOfSearch.equals("author")) {
-            finalQuery += "* FROM author WHERE(";
-            for (int i = 0; i < searchTerms.length; i++) {
-                if (!firstRun) {
-                    finalQuery += " AND ";
+                firstRun = true;
+                finalQuery += ");";
+                genresSearched = true;
+            } else if (typeOfSearch.equals("author")) {
+                finalQuery += " * FROM author WHERE(";
+                for (int i = 0; i < searchTerms.length; i++) {
+                    if (!firstRun) {
+                        finalQuery += " AND ";
+                    }
+                    firstRun = false;
+                    finalQuery += " ( author_firstname LIKE ? ) OR ( author_lastname LIKE ? ) ";
+                    values.add(searchTerms[i]);
+                    values.add(searchTerms[i]);
                 }
-                firstRun = false;
-                finalQuery += " ( author_firstname LIKE ? ) OR ( author_lastname LIKE ? ) ";
-                values.add(searchTerms[i]);
-                values.add(searchTerms[i]);
+                finalQuery += ");";
+                authorsSearched = true;
             }
-            finalQuery += ");";
-            authorsSearched = true;
+        }
+        else{
+            values.add(userName);
+            ArrayList<ArrayList<String>> userData=db.getData("SELECT * FROM user WHERE user_username = ?", values, true);
+            User aUser=new User(Integer.parseInt(userData.get(1).get(0)), userData.get(1).get(1), userData.get(1).get(2), userData.get(1).get(3), userData.get(1).get(4), userData.get(1).get(5));
+            ArrayList<ArrayList<String>> books_on_loanData = db.getData("SELECT * FROM books_on_loan where user_id = "+ aUser.getUser_id() +";", true);
+            for(int i=1;i<books_on_loanData.size();i++){
+                ArrayList<ArrayList<String>> booksData=db.getData("SELECT * FROM books WHERE book_id = "+ books_on_loanData.get(i).get(0) +"", true);
+                aBook = new Books(Integer.parseInt(booksData.get(i).get(0)), booksData.get(i).get(1), booksData.get(i).get(2), Integer.parseInt(booksData.get(i).get(3)), Integer.parseInt(booksData.get(i).get(4)), Integer.parseInt(booksData.get(i).get(5)), booksData.get(i).get(6), Integer.parseInt(booksData.get(i).get(7)));
+                aGenre=getGenres(aBook);
+                aPublisher=getPublisher(aBook);
+                authorList=getAuthorList(aBook);
+                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty((books_on_loanData.get(i).get(2))));
+                for(int j=0; j<searchTerms.length;j++){
+                    if(aDetailedBook.getBook_isbn().getValue().contains(searchTerms[j]) ||  aDetailedBook.getBook_genre().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_title().getValue().contains(searchTerms[j]) || aDetailedBook.getPublisher_name().getValue().contains(searchTerms[j]) || aDetailedBook.getAuthor().getValue().contains(searchTerms[j]) || aDetailedBook.getBook_publisher_year().getValue().contains(searchTerms[j]))
+                        returnedBooks.add(aDetailedBook);
+                }
+
+            }
+
         }
         ArrayList<ArrayList<String>> queryResponse = db.getData(finalQuery, values, true);
         System.out.println(queryResponse.size() + "QR");
@@ -106,7 +128,7 @@ public class ConcreteSearcher {
         // if a search for books has been done
         if (booksSearched) {
             for (int i = 1; i < queryResponse.size(); i++) {
-                String authorList = "";
+
                 aBook = new Books(Integer.parseInt(queryResponse.get(i).get(0)), queryResponse.get(i).get(1), queryResponse.get(i).get(2), Integer.parseInt(queryResponse.get(i).get(3)), Integer.parseInt(queryResponse.get(i).get(4)), Integer.parseInt(queryResponse.get(i).get(5)), queryResponse.get(i).get(6), Integer.parseInt(queryResponse.get(i).get(7)));
 
                 aPublisher=getPublisher(aBook);
@@ -114,7 +136,7 @@ public class ConcreteSearcher {
                 authorList=getAuthorList(aBook);
 
                 // ITERATE THROUGH POSSIBLE AUTHORS With FOR LOOP AND CREATE A NEW AUTHOR FULLNAME EVERY TIME YOU FIND ONE, PASS ARRAYLIST TO ADETAILEDBOOK
-                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
+                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty(("none")));
                 returnedBooks.add(aDetailedBook);
             }
         }
@@ -133,7 +155,7 @@ public class ConcreteSearcher {
                         aPublisher=getPublisher(aBook);
                         aGenre=getGenres(aBook);
 
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(anAuthor.getAuthor_firstname()+" "+anAuthor.getAuthor_lastname()));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(anAuthor.getAuthor_firstname()+" "+anAuthor.getAuthor_lastname()), new SimpleStringProperty(("none")));
                         returnedBooks.add(aDetailedBook);
                     }
                 }
@@ -144,9 +166,9 @@ public class ConcreteSearcher {
                     ArrayList<ArrayList<String>> bookData= db.getData("SELECT * FROM books WHERE book_publisher_id = "+ aPublisher.getPublisherId() +"",true);
                     for(int j=1; j<bookData.size();j++){
                         aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
-                        String authorList=getAuthorList(aBook);
+                        authorList=getAuthorList(aBook);
                         aGenre=getGenres(aBook);
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty(("none")));
                         returnedBooks.add(aDetailedBook);
                     }
                 }
@@ -157,10 +179,10 @@ public class ConcreteSearcher {
                     ArrayList<ArrayList<String>> bookData=db.getData("SELECT * FROM books WHERE book_genre_id = "+ aGenre.getGenre_id() +";",true);
                     for(int j=1; j<bookData.size();j++){
                         aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
-                        String authorList=getAuthorList(aBook);
+                        authorList=getAuthorList(aBook);
                         aPublisher=getPublisher(aBook);
 
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty(("none")));
                         returnedBooks.add(aDetailedBook);
                     }
                 }

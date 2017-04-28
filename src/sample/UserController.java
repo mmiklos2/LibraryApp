@@ -53,7 +53,7 @@ public class UserController implements Initializable, ControlledScreen {
 
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
-        list = cs.search("dible", "publisher");
+        list = cs.search("dible", "publisher", false, "lxc8852");
         System.out.println("Size : " + list.size());
         table = createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
