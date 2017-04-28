@@ -23,7 +23,7 @@ public class MySQLDatabase {
 
 	}
 
-	public boolean Connection(Connection con)
+	public boolean connect(Connection con)
 	{
 		try{
 
@@ -142,7 +142,7 @@ public class MySQLDatabase {
 			System.out.println("Error occurred during batch update operation");
 		} catch (SQLClientInfoException e) {
 			e.printStackTrace();
-			System.out.println("One or more properties could not be set on Connection");
+			System.out.println("One or more properties could not be set on connect");
 		} catch (SQLException e) {
 			System.out.println("ALTER, UPDATE, INSERT, or DELETE failed.");
 			return false;

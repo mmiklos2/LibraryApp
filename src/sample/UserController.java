@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,8 +21,8 @@ import java.util.ResourceBundle;
 public class UserController implements Initializable, ControlledScreen {
 
     ScreensController myController;
-    private List<Publisher> list = null;
-    private TableView<Publisher> table = null;
+    private List<DetailedBook> list = null;
+    private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
 
@@ -41,38 +42,61 @@ public class UserController implements Initializable, ControlledScreen {
     }
 
     public void buildSearch(ActionEvent actionEvent) {
-        list = createList();
+
+        Connection conect=null;
+        MySQLDatabase con= new MySQLDatabase("root","password","localhost","3306", "mydb");
+        if(con.connect(conect)){
+            System.out.println("Connected!");
+        }
+        else{
+            System.out.println("Not connected");
+
+        }
+        ConcreteSearcher cs=new ConcreteSearcher(con);
+        list = cs.search("dible", "publisher");
+        System.out.println("Size : " + list.size());
         table = createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
     }
 
-    private ArrayList<Publisher> createList(){
-        ArrayList<Publisher> rak = new ArrayList<>();
-        for(int i = 0; i<=100; i++){
-            Publisher p = new Publisher(i, "Name " + i, "City " + i);
-            rak.add(p);
-        }
+    private TableView<DetailedBook> createTable(){
+        TableView<DetailedBook> table = new TableView<>();
 
-        return rak;
-    }
+        TableColumn<DetailedBook, String> column1 = new TableColumn<>("ISBN");
+        column1.setCellValueFactory(param -> param.getValue().getBook_isbn());
+        column1.setPrefWidth(125);
 
-    private TableView<Publisher> createTable(){
-        TableView<Publisher> table = new TableView<>();
-        TableColumn<Publisher, Integer> column1 = new TableColumn<>("Id");
-        column1.setCellValueFactory(param -> param.getValue().publisher_id);
-        column1.setPrefWidth(150);
+        TableColumn<DetailedBook, String> column2 = new TableColumn<>("Title");
+        column2.setCellValueFactory(param -> param.getValue().getBook_title());
+        column2.setPrefWidth(100);
 
-        TableColumn<Publisher, String> column2 = new TableColumn<>("Foo");
-        column2.setCellValueFactory(param -> param.getValue().publisher_name);
-        column2.setPrefWidth(250);
+        TableColumn<DetailedBook, String> column3 = new TableColumn<>("Author(s)");
+        column3.setCellValueFactory(param -> param.getValue().getAuthor());
+        column3.setPrefWidth(100);
 
-        TableColumn<Publisher, String> column3 = new TableColumn<>("Bar");
-        column3.setCellValueFactory(param -> param.getValue().publisher_city);
-        column3.setPrefWidth(250);
+        TableColumn<DetailedBook, String> column4 = new TableColumn<>("Year");
+        column4.setCellValueFactory(param -> param.getValue().getBook_publisher_year());
+        column4.setPrefWidth(50);
 
-        table.getColumns().addAll(column1, column2, column3);
+        TableColumn<DetailedBook, String> column5 = new TableColumn<>("Copies");
+        column5.setCellValueFactory(param -> param.getValue().getBook_copies());
+        column5.setPrefWidth(75);
+
+        TableColumn<DetailedBook, String> column6 = new TableColumn<>("Location");
+        column6.setCellValueFactory(param -> param.getValue().getBook_location());
+        column6.setPrefWidth(100);
+
+        TableColumn<DetailedBook, String> column7 = new TableColumn<>("Genre");
+        column7.setCellValueFactory(param -> param.getValue().getBook_genre());
+        column7.setPrefWidth(100);
+
+        TableColumn<DetailedBook, String> column8 = new TableColumn<>("Publisher");
+        column8.setCellValueFactory(param -> param.getValue().getPublisher_name());
+        column8.setPrefWidth(100);
+
+        table.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8);
 
         table.setFixedCellSize(25);
         table.prefHeightProperty().bind(table.fixedCellSizeProperty().multiply(Bindings.size(table.getItems()).add(11.1)));
@@ -88,7 +112,6 @@ public class UserController implements Initializable, ControlledScreen {
 
         return new Pane(table);
     }
-
 
 
 }

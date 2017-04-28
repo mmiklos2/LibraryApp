@@ -42,7 +42,7 @@ public class Test {
 		
 		MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "library");
 
-		if(con.Connection(conect)){
+		if(con.connect(conect)){
 			System.out.println("Connected!");
 		}
 		else{
@@ -57,9 +57,9 @@ public class Test {
         }
 		
 		if(con.closeConnection()){
-			System.out.println("Connection closed ");
+			System.out.println("connect closed ");
 		}else{
-			System.out.println("Connection did not closed ");
+			System.out.println("connect did not closed ");
 			}
 		}
 }
