@@ -83,13 +83,17 @@ public class UserController implements Initializable, ControlledScreen {
 
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
-        System.out.println(textValue + ", " + comboValue);
         list = cs.search(textValue, comboValue, rented, "lxc8852");
-        System.out.println("Size : " + list.size());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
+        if(con.closeConnection()){
+            System.out.println("connect closed ");
+        }else{
+            System.out.println("connect did not closed ");
+        }
+
     }
 
     private Node createPage(int pageIndex){
