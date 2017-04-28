@@ -55,12 +55,13 @@ public class Test {
         for(DetailedBook dbsa: dbs){
             dbsa.printInfo();
         }
-		try {
+		/*try {
 			con.postP();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			con.rollbackTrans();
 		}
+		*/
 		/**try {
 			con.setBook_On_Loan();
 		} catch (SQLException e) {

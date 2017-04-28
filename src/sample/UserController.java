@@ -88,6 +88,12 @@ public class UserController implements Initializable, ControlledScreen {
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
+        if(con.closeConnection()){
+            System.out.println("connect closed ");
+        }else{
+            System.out.println("connect did not closed ");
+        }
+
     }
 
     private Node createPage(int pageIndex){

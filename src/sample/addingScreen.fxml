@@ -16,8 +16,8 @@
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="12.0" />
-            <TextField layoutX="175.0" layoutY="48.0" />
+            <TextField fx:id="title" layoutX="175.0" layoutY="12.0" />
+            <TextField fx:id="isbn" layoutX="175.0" layoutY="48.0" />
             <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
@@ -28,14 +28,14 @@
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="84.0" />
-            <TextField layoutX="175.0" layoutY="118.0" />
+            <TextField fx:id="year" layoutX="175.0" layoutY="84.0" />
+            <TextField fx:id="copies" layoutX="175.0" layoutY="118.0" />
             <Label layoutX="14.0" layoutY="120.0" text="No. of Copies" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="151.0" />
+            <TextField fx:id="location" layoutX="175.0" layoutY="151.0" />
             <Label layoutX="14.0" layoutY="153.0" text="Location" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
@@ -60,8 +60,8 @@
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="13.0" />
-            <TextField layoutX="175.0" layoutY="49.0" />
+            <TextField fx:id="pubName" layoutX="175.0" layoutY="13.0" />
+            <TextField fx:id="pubCity" layoutX="175.0" layoutY="49.0" />
             <Label layoutX="14.0" layoutY="50.0" text="Publisher City" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
@@ -81,7 +81,7 @@
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="13.0" />
+            <TextField fx:id="genre" layoutX="175.0" layoutY="13.0" />
          </children>
       </Pane>
       <Label layoutX="414.0" layoutY="27.0" style="-fx-background-color: #962D3E;" text="Author Info" textFill="WHITE">
@@ -96,8 +96,8 @@
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="175.0" layoutY="12.0" />
-            <TextField layoutX="175.0" layoutY="48.0" />
+            <TextField fx:id="fName" layoutX="175.0" layoutY="12.0" />
+            <TextField fx:id="lName" layoutX="175.0" layoutY="48.0" />
             <Label layoutX="14.0" layoutY="50.0" text="Last Name" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
@@ -105,7 +105,7 @@
             </Label>
          </children>
       </Pane>
-      <Button layoutX="604.0" layoutY="444.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #348899;" text="Add Book" textFill="WHITE">
+      <Button layoutX="604.0" layoutY="444.0" mnemonicParsing="false" onAction="#addBook" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #348899;" text="Add Book" textFill="WHITE">
          <font>
             <Font name="Helvetica Neue Light" size="20.0" />
          </font>
