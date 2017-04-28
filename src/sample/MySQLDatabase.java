@@ -13,11 +13,7 @@ public class MySQLDatabase {
 	private static String port="";
 	private static String server="";
 	private static String dbName="";
-	Publisher pb = new Publisher("sdfgh","sdfg");
-	Genres gr= new Genres("gfd");
-	Author at= new Author("m,kju","asd");
-	Books bk;
-	User ur= new User("lxc8852", "lxc8852@g.rit.edu", "crnilegenda", "Luka", "Crnjakovic");
+
 
 	public MySQLDatabase(String _username,String _password, String _server, String _port, String _dbName){
 		username=_username;
@@ -269,7 +265,7 @@ public class MySQLDatabase {
 		/////////
 
 		////BOOKS INSERT
-		bk= new Books("1234656","rghsdff 5342",book_pub_id,1234,534,"gfdnhfgnhg",gr.getGenre_id());
+
 		String genr= "SELECT genre_id from genres where genre_name=?";
 		results1=getData(genr,collection_genre,false);
 
@@ -317,7 +313,7 @@ public class MySQLDatabase {
     endTrans();
 	}
 
-	public void setBook_On_Loan()throws SQLException{
+	public void setBook_On_Loan(String username, String book_isbn)throws SQLException{
         startTrans();
 		boolean setDataReturnValue= false;
 		ArrayList<String> values= new ArrayList<>();
@@ -325,12 +321,12 @@ public class MySQLDatabase {
 		ArrayList<ArrayList<String>> results1= null;
 		ArrayList<String> geto= new ArrayList<>();
 		ArrayList<String> wurf= new ArrayList<>();
-		geto.add(bk.getBook_isbn());
-		String book_isbn= "SELECT book_id FROM books where book_isbn=?";
+		geto.add(book_isbn);
+		String book_isbn1= "SELECT book_id FROM books where book_isbn=?";
 
-		results= getData(book_isbn,geto,false);
+		results= getData(book_isbn1,geto,false);
 		values.add(results.get(1).get(0));
-		wurf.add(ur.getUser_username());
+		wurf.add(username);
 		String user_id= "SELECT user_id FROM user where user_username=?";
 		results1= getData(user_id,wurf,false);
 		values.add(results1.get(1).get(0));
@@ -346,7 +342,7 @@ public class MySQLDatabase {
 		}
 		endTrans();
 	}
-	public void deleteP() throws SQLException
+	public void deleteP(String username, String book_isbn) throws SQLException
 	{   startTrans();
 		boolean dataFound = false;
 		ArrayList<String> values = new ArrayList<>();
@@ -354,11 +350,11 @@ public class MySQLDatabase {
 		ArrayList<ArrayList<String>> results1= null;
 		ArrayList<String> geto= new ArrayList<>();
 		ArrayList<String> wurf= new ArrayList<>();
-		String book_isbn= "SELECT book_id FROM books where book_isbn=?";
-		geto.add(bk.getBook_isbn());
-		results= getData(book_isbn,geto,false);
+		String book_isbn1= "SELECT book_id FROM books where book_isbn=?";
+		geto.add(book_isbn);
+		results= getData(book_isbn1,geto,false);
 		values.add(results.get(1).get(0));
-		wurf.add(ur.getUser_username());
+		wurf.add(username);
 		String user_id= "SELECT user_id FROM user where user_username=?";
 
 		results1= getData(user_id,wurf,false);
