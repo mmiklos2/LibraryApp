@@ -30,7 +30,7 @@
                   <Font name="Helvetica Neue Light" size="14.0" />
                </font>
             </Button>
-            <RadioButton layoutX="52.0" layoutY="114.0" mnemonicParsing="false" selected="true" text="All" textFill="WHITE">
+            <RadioButton fx:id="allRadio" layoutX="52.0" layoutY="114.0" mnemonicParsing="false" selected="true" text="All" textFill="WHITE">
                <font>
                   <Font name="Helvetica" size="14.0" />
                </font>
@@ -38,7 +38,7 @@
                   <ToggleGroup fx:id="booksRadio" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="121.0" layoutY="114.0" mnemonicParsing="false" text="Rented" textFill="WHITE" toggleGroup="$booksRadio">
+            <RadioButton fx:id="rentedRadio" layoutX="121.0" layoutY="114.0" mnemonicParsing="false" text="Rented" textFill="WHITE" toggleGroup="$booksRadio">
                <font>
                   <Font name="Helvetica Light" size="14.0" />
                </font>

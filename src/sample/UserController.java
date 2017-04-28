@@ -28,6 +28,12 @@ public class UserController implements Initializable, ControlledScreen {
     private TextField searchText;
 
     @FXML
+    private RadioButton allRadio;
+
+    @FXML
+    private RadioButton rentedRadio;
+
+    @FXML
     private ComboBox comboBox;
 
     @FXML
@@ -44,6 +50,7 @@ public class UserController implements Initializable, ControlledScreen {
 
     public void buildSearch(ActionEvent actionEvent) {
         TableBuilder tb = new TableBuilder();
+        boolean rented = false;
         String textValue;
         String comboValue;
         if(comboBox.getValue() != null){
@@ -59,6 +66,13 @@ public class UserController implements Initializable, ControlledScreen {
             return;
         }
 
+        if(rentedRadio.isSelected()){
+            rented = true;
+        }
+        else{
+            rented = false;
+        }
+
         Connection conect=null;
         MySQLDatabase con= new MySQLDatabase("root","password","localhost","3306", "mydb");
         if(con.connect(conect)){
@@ -70,7 +84,7 @@ public class UserController implements Initializable, ControlledScreen {
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
         System.out.println(textValue + ", " + comboValue);
-        list = cs.search(textValue, comboValue, false, "lxc8852");
+        list = cs.search(textValue, comboValue, rented, "x");
         System.out.println("Size : " + list.size());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
