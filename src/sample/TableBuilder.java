@@ -31,25 +31,29 @@ public class TableBuilder {
 
         TableColumn<DetailedBook, String> column4 = new TableColumn<>("Year");
         column4.setCellValueFactory(param -> param.getValue().getBook_publisher_year());
-        column4.setPrefWidth(50);
+        column4.setPrefWidth(40);
 
         TableColumn<DetailedBook, String> column5 = new TableColumn<>("Copies");
         column5.setCellValueFactory(param -> param.getValue().getBook_copies());
-        column5.setPrefWidth(75);
+        column5.setPrefWidth(70);
 
         TableColumn<DetailedBook, String> column6 = new TableColumn<>("Location");
         column6.setCellValueFactory(param -> param.getValue().getBook_location());
-        column6.setPrefWidth(100);
+        column6.setPrefWidth(70);
 
         TableColumn<DetailedBook, String> column7 = new TableColumn<>("Genre");
         column7.setCellValueFactory(param -> param.getValue().getBook_genre());
-        column7.setPrefWidth(100);
+        column7.setPrefWidth(70);
 
         TableColumn<DetailedBook, String> column8 = new TableColumn<>("Publisher");
         column8.setCellValueFactory(param -> param.getValue().getPublisher_name());
         column8.setPrefWidth(100);
 
-        table.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8);
+        TableColumn<DetailedBook, String> column9 = new TableColumn<>("Date due");
+        column9.setCellValueFactory(param -> param.getValue().getDateDue());
+        column9.setPrefWidth(100);
+
+        table.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8, column9);
 
         table.setFixedCellSize(25);
         table.prefHeightProperty().bind(table.fixedCellSizeProperty().multiply(Bindings.size(table.getItems()).add(11.1)));
@@ -57,5 +61,5 @@ public class TableBuilder {
         table.maxHeightProperty().bind(table.prefHeightProperty());
         return table;
     }
-    
+
 }
