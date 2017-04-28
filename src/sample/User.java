@@ -8,12 +8,17 @@ public class User {
 	private String user_password;
 	private String user_firstname;
 	private String user_lastname;
-	
-	public User(){
-		
-	}
-	
-	public int getUser_id() {
+
+    public User(int user_id, String user_username, String user_email, String user_password, String user_firstname, String user_lastname) {
+        this.user_id = user_id;
+        this.user_username = user_username;
+        this.user_email = user_email;
+        this.user_password = user_password;
+        this.user_firstname = user_firstname;
+        this.user_lastname = user_lastname;
+    }
+
+    public int getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(int user_id) {
