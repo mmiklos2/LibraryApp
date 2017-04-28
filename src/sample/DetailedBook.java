@@ -1,6 +1,8 @@
 package sample;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 
 import java.util.ArrayList;
 
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 public class DetailedBook {
     private SimpleStringProperty book_isbn;
     private SimpleStringProperty book_title;
-    private int book_publisher_year;
-    private int book_copies;
+    private ObservableValue<Integer> book_publisher_year;
+    private ObservableValue<Integer> book_copies;
     private SimpleStringProperty book_location;
     private SimpleStringProperty book_genre;
     private SimpleStringProperty publisher_name;
@@ -22,8 +24,8 @@ public class DetailedBook {
     public DetailedBook(SimpleStringProperty book_isbn, SimpleStringProperty book_title, int book_publisher_year, int book_copies, SimpleStringProperty book_location, SimpleStringProperty book_genre, SimpleStringProperty publisher_name, SimpleStringProperty authors) {
         this.book_isbn = book_isbn;
         this.book_title = book_title;
-        this.book_publisher_year = book_publisher_year;
-        this.book_copies = book_copies;
+        this.book_publisher_year = new SimpleObjectProperty<>(book_publisher_year);
+        this.book_copies = new SimpleObjectProperty<>(book_copies);
         this.book_location = book_location;
         this.book_genre = book_genre;
         this.publisher_name = publisher_name;
@@ -51,11 +53,11 @@ public class DetailedBook {
     }
 
     public int getBook_publisher_year() {
-        return book_publisher_year;
+        return book_publisher_year.getValue();
     }
 
     public int getBook_copies() {
-        return book_copies;
+        return book_copies.getValue();
     }
 
     public SimpleStringProperty getBook_location() {

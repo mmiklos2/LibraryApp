@@ -114,7 +114,7 @@ public class ConcreteSearcher {
                 authorList=getAuthorList(aBook);
 
                 // ITERATE THROUGH POSSIBLE AUTHORS With FOR LOOP AND CREATE A NEW AUTHOR FULLNAME EVERY TIME YOU FIND ONE, PASS ARRAYLIST TO ADETAILEDBOOK
-                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), aPublisher.getPublisher_name(), new SimpleStringProperty(authorList));
+                DetailedBook aDetailedBook = new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
                 returnedBooks.add(aDetailedBook);
             }
         }
@@ -133,7 +133,7 @@ public class ConcreteSearcher {
                         aPublisher=getPublisher(aBook);
                         aGenre=getGenres(aBook);
 
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), aPublisher.getPublisher_name(), new SimpleStringProperty(anAuthor.getAuthor_firstname()+" "+anAuthor.getAuthor_lastname()));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(anAuthor.getAuthor_firstname()+" "+anAuthor.getAuthor_lastname()));
                         returnedBooks.add(aDetailedBook);
                     }
                 }
@@ -146,7 +146,7 @@ public class ConcreteSearcher {
                         aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
                         String authorList=getAuthorList(aBook);
                         aGenre=getGenres(aBook);
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), aPublisher.getPublisher_name(), new SimpleStringProperty(authorList));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
                         returnedBooks.add(aDetailedBook);
                     }
                 }
@@ -160,7 +160,7 @@ public class ConcreteSearcher {
                         String authorList=getAuthorList(aBook);
                         aPublisher=getPublisher(aBook);
 
-                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), aPublisher.getPublisher_name(), new SimpleStringProperty(authorList));
+                        DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList));
                         returnedBooks.add(aDetailedBook);
                     }
                 }
