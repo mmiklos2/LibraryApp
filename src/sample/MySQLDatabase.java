@@ -215,6 +215,9 @@ public class MySQLDatabase {
 		//////////////////////// FOR PUBLISHER select
 		ArrayList<ArrayList<String>> results = null;
 		ArrayList<ArrayList<String>> results1 = null;
+        ArrayList<ArrayList<String>> results2 = null;
+        ArrayList<ArrayList<String>> results3 = null;
+        ArrayList<String> isbn= new ArrayList<>();
 		ArrayList<String> publish = new ArrayList<>();
 		///////////////
 
@@ -223,6 +226,10 @@ public class MySQLDatabase {
 		ArrayList<String> collection_Author= new ArrayList<>();
 		ArrayList<String> collection_Publisher= new ArrayList<>();
 		ArrayList<String> collection_genre= new ArrayList<>();
+
+
+		ArrayList<String> collection_AuthorBook= new ArrayList<>();
+
 		///////////////////
 		boolean setDataReturnValue = false;
 		////////////////////////////////////////////////////////////////
@@ -288,6 +295,19 @@ public class MySQLDatabase {
 
 		setDataReturnValue = setData(author, collection_Author, false);
 		//////////////////
+
+        String author_book= "INSERT INTO author_book (author_id, book_id) "+ "VALUES (?,?)";
+
+        String author_id= " SELECT author_id from author where author_firstname=? and author_lastname=?";
+        results2= getData(author_id,collection_Author,false);
+        collection_AuthorBook.add(results2.get(1).get(0));
+
+        String book_isbn= "SELECT book_id FROM books where book_isbn=?";
+        isbn.add(book_ISBN);
+
+        results3=getData(book_isbn,isbn,false);
+        collection_AuthorBook.add(results3.get(1).get(0));
+        setDataReturnValue = setData(author_book, collection_AuthorBook, false);
 		if(setDataReturnValue){
 			System.out.println("works");
 		}
