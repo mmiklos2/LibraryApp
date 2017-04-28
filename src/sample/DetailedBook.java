@@ -15,11 +15,11 @@ public class DetailedBook {
     private int book_publisher_year;
     private int book_copies;
     private SimpleStringProperty book_location;
-    private int book_genre;
+    private SimpleStringProperty book_genre;
     private SimpleStringProperty publisher_name;
-    private ArrayList<SimpleStringProperty> authors;
+    private SimpleStringProperty authors;
 
-    public DetailedBook(SimpleStringProperty book_isbn, SimpleStringProperty book_title, int book_publisher_year, int book_copies, SimpleStringProperty book_location, int book_genre, SimpleStringProperty publisher_name, ArrayList<SimpleStringProperty> authors) {
+    public DetailedBook(SimpleStringProperty book_isbn, SimpleStringProperty book_title, int book_publisher_year, int book_copies, SimpleStringProperty book_location, SimpleStringProperty book_genre, SimpleStringProperty publisher_name, SimpleStringProperty authors) {
         this.book_isbn = book_isbn;
         this.book_title = book_title;
         this.book_publisher_year = book_publisher_year;
@@ -30,7 +30,7 @@ public class DetailedBook {
         this.authors=authors;;
     }
 
-    public int getBook_genre() {
+    public SimpleStringProperty getBook_genre() {
         return book_genre;
     }
 
@@ -38,7 +38,7 @@ public class DetailedBook {
         return publisher_name;
     }
 
-    public ArrayList<SimpleStringProperty> getAuthor() {
+    public SimpleStringProperty getAuthor() {
         return authors;
     }
 

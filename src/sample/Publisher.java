@@ -17,6 +17,14 @@ public class Publisher {
 
 	}
 
+	public SimpleStringProperty getPublisher_name(){
+	    return publisher_name;
+    }
+
+    public int getPublisherId(){
+	    return publisher_id.getValue();
+    }
+
 
 	
 	
