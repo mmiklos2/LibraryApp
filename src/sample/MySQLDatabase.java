@@ -59,8 +59,8 @@ public class MySQLDatabase {
 	}
 
 
-	public ArrayList<ArrayList<String>> getData(String SQLStatement, ArrayList<String>values){
-		PreparedStatement prepStmt=prepare(SQLStatement, values);
+	public ArrayList<ArrayList<String>> getData(String SQLStatement, ArrayList<String>values, boolean search){
+		PreparedStatement prepStmt=prepare(SQLStatement, values, search);
 		ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
 		try {
 			ResultSet rs=prepStmt.executeQuery();
@@ -120,9 +120,9 @@ public class MySQLDatabase {
     }
 
 
-	public boolean setData(String SQLStatement, ArrayList<String>values){
+	public boolean setData(String SQLStatement, ArrayList<String>values, boolean search){
 		try {
-			PreparedStatement stmnt = prepare(SQLStatement, values);
+			PreparedStatement stmnt = prepare(SQLStatement, values, search);
 			int rowsAffected = stmnt.executeUpdate();
 			if (rowsAffected <= 1)
 				return true;
@@ -150,12 +150,19 @@ public class MySQLDatabase {
 		return false;
 	}
 
-	public PreparedStatement prepare(String SQLStatement, ArrayList<String> values) {
+
+
+	private PreparedStatement prepare(String SQLStatement, ArrayList<String> values, boolean search) {
 		PreparedStatement prepStmt = null;
 		try {
 			prepStmt = connection.prepareStatement(SQLStatement);
+			System.out.println(SQLStatement);
 			for (int i = 1; i <= values.size(); i++) {
-				prepStmt.setString(i, values.get(i-1));
+			    System.out.println(values.get(i-1));
+			    if(search)
+				    prepStmt.setString(i, "%"+values.get(i-1)+"%");
+			    else
+                    prepStmt.setString(i, values.get(i-1));
 			}
 		} catch (SQLException e) {
 			System.out.println("An SQL exception occurred");
