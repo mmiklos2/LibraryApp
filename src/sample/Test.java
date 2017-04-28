@@ -51,7 +51,7 @@ public class Test {
 		}
 
 		ConcreteSearcher cs=new ConcreteSearcher(con);
-		ArrayList<DetailedBook>dbs = cs.search("dible", "publisher");
+		ArrayList<DetailedBook>dbs = cs.search("dible", "Publisher", false, "lxc8852");
         for(DetailedBook dbsa: dbs){
             dbsa.printInfo();
         }
