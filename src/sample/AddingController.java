@@ -35,7 +35,7 @@ public class AddingController implements Initializable, ControlledScreen{
     public void addBook(ActionEvent actionEvent) {
 
         Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","password","localhost","3306", "mydb");
+        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
         if(con.connect(conect)){
             System.out.println("Connected!");
         }
