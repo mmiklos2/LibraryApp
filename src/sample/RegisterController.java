@@ -43,5 +43,8 @@ public class RegisterController implements Initializable, ControlledScreen{
         if(selected){
             libCode.setDisable(false);
         }
+        else{
+            libCode.setDisable(true);
+        }
     }
 }

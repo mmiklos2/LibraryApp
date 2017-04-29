@@ -172,7 +172,7 @@ public class ConcreteSearcher {
                 ArrayList<ArrayList<String>> books_on_loanData = db.getData("SELECT * FROM books_on_loan where user_id = "+ aUser.getUser_id() +";", true);
                 for(int i=1;i<books_on_loanData.size();i++){
                     ArrayList<ArrayList<String>> booksData=db.getData("SELECT * FROM books WHERE book_id = "+ books_on_loanData.get(i).get(0) +"", true);
-                    aBook = new Books(Integer.parseInt(booksData.get(i).get(0)), booksData.get(i).get(1), booksData.get(i).get(2), Integer.parseInt(booksData.get(i).get(3)), Integer.parseInt(booksData.get(i).get(4)), Integer.parseInt(booksData.get(i).get(5)), booksData.get(i).get(6), Integer.parseInt(booksData.get(i).get(7)));
+                    aBook = new Books(Integer.parseInt(booksData.get(1).get(0)), booksData.get(1).get(1), booksData.get(1).get(2), Integer.parseInt(booksData.get(1).get(3)), Integer.parseInt(booksData.get(1).get(4)), Integer.parseInt(booksData.get(1).get(5)), booksData.get(1).get(6), Integer.parseInt(booksData.get(1).get(7)));
                     aGenre=getGenres(aBook);
                     aPublisher=getPublisher(aBook);
                     authorList=getAuthorList(aBook);
