@@ -374,6 +374,53 @@ public class MySQLDatabase {
 		endTrans();
 	}
 
+	public void regLib(String fName, String lName, String email, String username, String password){
+		String role="L";
+		boolean setDataReturnValue=false;
+		ArrayList<String> values= new ArrayList<>();
+		values.add(username);
+		values.add(email);
+		values.add(password);
+		values.add(fName);
+		values.add(lName);
+		values.add(role);
+
+		String st= "INSERT INTO user (user_username, user_email, user_password, user_firstname, user_lastname, role) "+"VALUES(?,?,?,?,?,?)";
+		setDataReturnValue=setData(st,values,false);
+
+		if(setDataReturnValue){
+			System.out.println("works");
+		}
+		else{
+			System.out.println("0 rows found!");
+		}
+		endTrans();
+
+	}
+	public void regUser(String fName, String lName, String email, String username, String password){
+	String role="U";
+	boolean setDataReturnValue=false;
+	ArrayList<String> values= new ArrayList<>();
+		values.add(username);
+		values.add(email);
+		values.add(password);
+	values.add(fName);
+	values.add(lName);
+	values.add(role);
+
+	String st= "INSERT INTO user (user_username, user_email, user_password, user_firstname, user_lastname, role) "+"VALUES(?,?,?,?,?,?)";
+		setDataReturnValue=setData(st,values,false);
+
+		if(setDataReturnValue){
+			System.out.println("works");
+		}
+		else{
+			System.out.println("0 rows found!");
+		}
+		endTrans();
+
+	}
+
 }
 		
 		
