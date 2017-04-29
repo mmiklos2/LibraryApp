@@ -380,13 +380,13 @@ public class MySQLDatabase {
 		vals.add(password);
 
 			results=getData("Select role FROM user WHERE user_username=? AND user_password = ?;", vals,false);
-			String role= results.get(1).get(0);
-			if(results.size()>=1){
 
+			if(results.size()>1){
+				String role= results.get(1).get(0);
 				return role;
 			}
-
-		return "ERROR";
+			else
+				return "error";
 	}
 
 	public void regLib(String fName, String lName, String email, String username, String password){

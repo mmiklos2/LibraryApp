@@ -14,7 +14,7 @@
    <children>
       <Pane layoutX="202.0" layoutY="91.0" prefHeight="418.0" prefWidth="397.0" style="-fx-background-color: #F2EBC7; -fx-background-radius: 10px;">
          <children>
-            <TextField layoutX="186.0" layoutY="189.0" />
+            <TextField fx:id="username" layoutX="186.0" layoutY="189.0" />
             <Label layoutX="66.0" layoutY="194.0" text="User:">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
@@ -40,7 +40,7 @@
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Button>
-            <PasswordField layoutX="186.0" layoutY="242.0" />
+            <PasswordField fx:id="password" layoutX="186.0" layoutY="242.0" />
          </children>
       </Pane>
    </children>
