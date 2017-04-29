@@ -68,12 +68,13 @@ public class Test {
 			e.printStackTrace();
 		 con.rollbackTrans();
 		}*/
-		try {
+		/*try {
 			con.deleteP();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			con.rollbackTrans();
 		}
+		*/
 		if(con.closeConnection()){
 			System.out.println("connect closed ");
 		}else{

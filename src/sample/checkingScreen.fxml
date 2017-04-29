@@ -16,8 +16,8 @@
                         <Font name="Helvetica Neue Light" size="16.0" />
                     </font>
                 </Label>
-                <TextField layoutX="175.0" layoutY="12.0" />
-                <TextField layoutX="175.0" layoutY="48.0" />
+                <TextField fx:id="username" layoutX="175.0" layoutY="12.0" />
+                <TextField fx:id="isbn" layoutX="175.0" layoutY="48.0" />
                 <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
                     <font>
                         <Font name="Helvetica Neue Light" size="16.0" />
@@ -28,12 +28,12 @@
                       <Font name="Helvetica Neue Light" size="16.0" />
                   </font>
               </Button>
-            <Button layoutX="242.0" layoutY="137.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Return" textFill="WHITE">
+            <Button layoutX="242.0" layoutY="137.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Return" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="129.0" layoutY="137.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Loan" textFill="WHITE">
+            <Button layoutX="129.0" layoutY="137.0" mnemonicParsing="false" onAction="#loanBook" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #348899;" text="Loan" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="16.0" />
                </font>

@@ -47,11 +47,11 @@ public class TableBuilder {
 
         TableColumn<DetailedBook, String> column8 = new TableColumn<>("Publisher");
         column8.setCellValueFactory(param -> param.getValue().getPublisher_name());
-        column8.setPrefWidth(100);
+        column8.setPrefWidth(75);
 
         TableColumn<DetailedBook, String> column9 = new TableColumn<>("Date due");
         column9.setCellValueFactory(param -> param.getValue().getDateDue());
-        column9.setPrefWidth(100);
+        column9.setPrefWidth(75);
 
         table.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8, column9);
 

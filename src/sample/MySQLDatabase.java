@@ -330,7 +330,7 @@ public class MySQLDatabase {
 		String user_id= "SELECT user_id FROM user where user_username=?";
 		results1= getData(user_id,wurf,false);
 		values.add(results1.get(1).get(0));
-		values.add("2017-05-17 10:01:00.999999");
+		values.add("2017-05-18 10:01:00.999979");
 		values.add("0");
 		String inst= "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) "+ "VALUES(?, ?, ?, ?)";
 		setDataReturnValue=setData(inst, values, false);
