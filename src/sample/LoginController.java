@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import sample.ControlledScreen;
 import sample.ScreensController;
 
@@ -53,8 +55,13 @@ public class LoginController implements Initializable, ControlledScreen{
         }
         try{
             role = con.login(username.getText(), password.getText());
-            if(role.equals("U"))
+            if(role.equals("U")) {
+                final Clipboard c = Clipboard.getSystemClipboard();
+                final ClipboardContent cc = new ClipboardContent();
+                cc.putString(username.getText());
+                c.setContent(cc);
                 myController.setScreen(Main.USER_SCREEN);
+            }
             else if(role.equals("L"))
                 myController.setScreen(Main.LIBRARIAN_SCREEN);
             else {

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 public class UserController implements Initializable, ControlledScreen {
 
     ScreensController myController;
+    Clipboard c = Clipboard.getSystemClipboard();
+    private String user = c.getString();
     private List<DetailedBook> list = null;
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
@@ -74,7 +77,7 @@ public class UserController implements Initializable, ControlledScreen {
         }
 
         Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","password","localhost","3306", "mydb");
+        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
         if(con.connect(conect)){
             System.out.println("Connected!");
         }
@@ -83,7 +86,7 @@ public class UserController implements Initializable, ControlledScreen {
 
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
-        list = cs.search(textValue, comboValue, rented, "lxc8852");
+        list = cs.search(textValue, comboValue, rented, user);
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
