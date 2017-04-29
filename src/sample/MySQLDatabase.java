@@ -373,8 +373,23 @@ public class MySQLDatabase {
 		}
 		endTrans();
 	}
+	public String login(String username, String password)throws SQLException{
+		ArrayList<ArrayList<String>> results=null;
+		ArrayList<String> vals=new ArrayList<>();
+		vals.add(username);
+		vals.add(password);
 
-	public void regLib(String fName, String lName, String email, String username, String password) throws SQLException{
+			results=getData("Select role FROM user WHERE user_username=? AND user_password = ?;", vals,false);
+			String role= results.get(1).get(0);
+			if(results.size()>=1){
+
+				return role;
+			}
+
+		return "ERROR";
+	}
+
+	public void regLib(String fName, String lName, String email, String username, String password){
 		String role="L";
 		boolean setDataReturnValue=false;
 		ArrayList<String> values= new ArrayList<>();
