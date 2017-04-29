@@ -374,7 +374,7 @@ public class MySQLDatabase {
 		endTrans();
 	}
 
-	public void regLib(String fName, String lName, String email, String username, String password){
+	public void regLib(String fName, String lName, String email, String username, String password) throws SQLException{
 		String role="L";
 		boolean setDataReturnValue=false;
 		ArrayList<String> values= new ArrayList<>();
@@ -397,7 +397,7 @@ public class MySQLDatabase {
 		endTrans();
 
 	}
-	public void regUser(String fName, String lName, String email, String username, String password){
+	public void regUser(String fName, String lName, String email, String username, String password) throws SQLException{
 	String role="U";
 	boolean setDataReturnValue=false;
 	ArrayList<String> values= new ArrayList<>();
