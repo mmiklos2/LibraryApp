@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class MySQLDatabase {
@@ -145,7 +147,7 @@ public class MySQLDatabase {
 			e.printStackTrace();
 			System.out.println("One or more properties could not be set on connect");
 		} catch (SQLException e) {
-			System.out.println("ALTER, UPDATE, INSERT, or DELETE failed.");
+			System.out.println(e);
 			return false;
 		}
 		return false;
@@ -330,7 +332,16 @@ public class MySQLDatabase {
 		String user_id= "SELECT user_id FROM user where user_username=?";
 		results1= getData(user_id,wurf,false);
 		values.add(results1.get(1).get(0));
-		values.add("2017-05-18 10:01:00.999979");
+
+
+		LocalDate today = LocalDate.now();
+		System.out.println("Current date: " + today);
+
+		//add 2 week to the current date
+		LocalDate next2Week = today.plus(2, ChronoUnit.WEEKS);
+		System.out.println("Next week: " + next2Week);
+
+		values.add(next2Week+" 20:00:00");
 		values.add("0");
 		String inst= "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) "+ "VALUES(?, ?, ?, ?)";
 		setDataReturnValue=setData(inst, values, false);
