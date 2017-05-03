@@ -20,9 +20,18 @@ import java.util.HashMap;
 public class ScreensController extends StackPane{
 
     private HashMap<String, Node> screens = new HashMap<>();
+    private String username = "";
 
     public void addScreen(String name, Node screen) {
         screens.put(name, screen);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean loadScreen(String name, String resource) {

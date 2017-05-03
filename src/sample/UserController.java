@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 public class UserController implements Initializable, ControlledScreen {
 
     ScreensController myController;
-    Clipboard c = Clipboard.getSystemClipboard();
-    private String user = c.getString();
+    //Clipboard c = Clipboard.getSystemClipboard();
+    //private String user = c.getString();
     private List<DetailedBook> list = null;
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
@@ -86,7 +86,7 @@ public class UserController implements Initializable, ControlledScreen {
 
         }
         ConcreteSearcher cs=new ConcreteSearcher(con);
-        list = cs.search(textValue, comboValue, rented, user);
+        list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
