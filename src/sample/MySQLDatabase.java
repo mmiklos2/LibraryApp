@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -316,43 +318,69 @@ public class MySQLDatabase {
 	}
 
 	public void setBook_On_Loan(String username, String book_isbn)throws SQLException{
-        startTrans();
+
 		boolean setDataReturnValue= false;
+
+
+
 		ArrayList<String> values= new ArrayList<>();
-		ArrayList<ArrayList<String>> results= null;
-		ArrayList<ArrayList<String>> results1= null;
-		ArrayList<String> geto= new ArrayList<>();
-		ArrayList<String> wurf= new ArrayList<>();
-		geto.add(book_isbn);
+		ArrayList<ArrayList<String>> book_id_results= null;
+		ArrayList<ArrayList<String>> user_id_results= null;
+        ArrayList<ArrayList<String>> book_copies_results= null;
+		ArrayList<String> book_id_values= new ArrayList<>();
+		ArrayList<String> user_id_values= new ArrayList<>();
+        ArrayList<String> book_copies_values= new ArrayList<>();
+        book_id_values.add(book_isbn);
+
 		String book_isbn1= "SELECT book_id FROM books where book_isbn=?";
-
-		results= getData(book_isbn1,geto,false);
-		values.add(results.get(1).get(0));
-		wurf.add(username);
+        book_id_results= getData(book_isbn1,book_id_values,false);
+		String book_id=book_id_results.get(1).get(0);
+		values.add(book_id);
+        user_id_values.add(username);
 		String user_id= "SELECT user_id FROM user where user_username=?";
-		results1= getData(user_id,wurf,false);
-		values.add(results1.get(1).get(0));
+        user_id_results= getData(user_id,user_id_values,false);
+		values.add(user_id_results.get(1).get(0));
+
+        ArrayList<ArrayList<String>> loaned_book_results=null;
+        ArrayList<String> loaned_book_values=new ArrayList<>();
+        loaned_book_values.add(book_id);
+        loaned_book_results=getData("SELECT user_id FROM books_on_loan WHERE book_id = ?",loaned_book_values ,false);
 
 
-		LocalDate today = LocalDate.now();
-		System.out.println("Current date: " + today);
+        // if there's already such a loaned book
+        if(loaned_book_results.size()>1){
+            if(loaned_book_results.get(1).get(0).equals(user_id_results.get(1).get(0))){
+                Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+                alert_loan.setTitle("Rent error");
+                alert_loan.setContentText("You are already renting this book.");
+                alert_loan.showAndWait();
+                return;
+            }
+        }
 
-		//add 2 week to the current date
-		LocalDate next2Week = today.plus(2, ChronoUnit.WEEKS);
-		System.out.println("Next week: " + next2Week);
 
-		values.add(next2Week+" 20:00:00");
-		values.add("0");
-		String inst= "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) "+ "VALUES(?, ?, ?, ?)";
-		setDataReturnValue=setData(inst, values, false);
-		if(setDataReturnValue){
-			System.out.println("works");
-		}
-		else{
-			System.out.println("0 rows found!");
-		}
-		endTrans();
-	}
+            LocalDate today = LocalDate.now();
+            System.out.println("Current date: " + today);
+
+            //add 2 week to the current date
+            LocalDate next2Week = today.plus(2, ChronoUnit.WEEKS);
+            System.out.println("Next week: " + next2Week);
+
+            values.add(next2Week+" 20:00:00");
+            values.add("0");
+            String inst= "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) "+ "VALUES(?, ?, ?, ?)";
+            startTrans();
+            setDataReturnValue=setData(inst, values, false);
+            if(setDataReturnValue){
+                System.out.println("works");
+            }
+            else{
+                System.out.println("0 rows found!");
+            }
+            endTrans();
+	    }
+
+
 	public void deleteP(String username, String book_isbn) throws SQLException
 	{   startTrans();
 		boolean dataFound = false;
