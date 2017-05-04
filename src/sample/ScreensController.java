@@ -21,6 +21,15 @@ public class ScreensController extends StackPane{
 
     private HashMap<String, Node> screens = new HashMap<>();
     private String username = "";
+    private String isbn = "";
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
     public void addScreen(String name, Node screen) {
         screens.put(name, screen);

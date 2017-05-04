@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -73,6 +74,15 @@ public class LibrarianController implements Initializable, ControlledScreen{
         list = cs.search(textValue, comboValue, false, "");
         System.out.println("Size : " + list.size());
         table = tb.createTable();
+        table.setRowFactory(tv -> {
+            TableRow<DetailedBook>db=new TableRow<>();
+            db.setOnMouseClicked(event ->{
+                if(!db.isEmpty() && event.getButton()== MouseButton.PRIMARY && event.getClickCount()==2){
+                    myController.setIsbn(db.getItem().getBook_isbn().getValue());
+                }
+            });
+            return db;
+        });
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);

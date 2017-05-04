@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -28,8 +29,13 @@ public class CheckingController implements Initializable, ControlledScreen{
         myController = screenParent;
     }
 
+    private void setIsbnText(){
+        isbn.setText(this.myController.getIsbn());
+    }
     public void goBack(ActionEvent actionEvent) {
         myController.setScreen(Main.LIBRARIAN_SCREEN);
+        username.clear();
+        isbn.clear();
     }
 
     public void returnBook(ActionEvent actionEvent) {
@@ -53,6 +59,7 @@ public class CheckingController implements Initializable, ControlledScreen{
         }else{
             System.out.println("connect did not closed ");
         }
+        myController.setScreen(Main.LIBRARIAN_SCREEN);
     }
 
     public void loanBook(ActionEvent actionEvent) {
@@ -76,6 +83,11 @@ public class CheckingController implements Initializable, ControlledScreen{
         }else{
             System.out.println("connect did not closed ");
         }
+        myController.setScreen(Main.LIBRARIAN_SCREEN);
+    }
+
+    public void loadIsbn(MouseEvent mouseEvent) {
+        this.setIsbnText();
     }
 }
 

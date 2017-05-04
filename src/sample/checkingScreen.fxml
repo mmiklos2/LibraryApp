@@ -17,7 +17,7 @@
                     </font>
                 </Label>
                 <TextField fx:id="username" layoutX="175.0" layoutY="12.0" />
-                <TextField fx:id="isbn" layoutX="175.0" layoutY="48.0" />
+                <TextField fx:id="isbn" onMouseClicked="#loadIsbn" layoutX="175.0" layoutY="48.0" />
                 <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
                     <font>
                         <Font name="Helvetica Neue Light" size="16.0" />

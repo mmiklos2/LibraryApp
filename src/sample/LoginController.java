@@ -56,10 +56,6 @@ public class LoginController implements Initializable, ControlledScreen{
         try{
             role = con.login(username.getText(), password.getText());
             if(role.equals("U")) {
-                final Clipboard c = Clipboard.getSystemClipboard();
-                final ClipboardContent cc = new ClipboardContent();
-                cc.putString(username.getText());
-                c.setContent(cc);
                 myController.setUsername(username.getText());
                 myController.setScreen(Main.USER_SCREEN);
             }

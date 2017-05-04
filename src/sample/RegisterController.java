@@ -55,7 +55,7 @@ public class RegisterController implements Initializable, ControlledScreen{
 
         }
         try{
-            if(libCode.getText().equals("15")){
+            if(libCode.getText().equals("hujak")){
                 con.regLib(fName.getText(), lName.getText(), email.getText(), username.getText(), password.getText());
             }
             else{
@@ -70,6 +70,7 @@ public class RegisterController implements Initializable, ControlledScreen{
         }else{
             System.out.println("connect did not closed ");
         }
+        myController.setScreen(Main.LOGIN_SCREEN);
     }
 
     public void enableAdminCode(ActionEvent actionEvent) {
