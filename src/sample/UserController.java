@@ -1,21 +1,19 @@
 package sample;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.Clipboard;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class UserController implements Initializable, ControlledScreen {
 
@@ -26,6 +24,7 @@ public class UserController implements Initializable, ControlledScreen {
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
+    MySQLDatabase con;
 
     @FXML
     private TextField searchText;
@@ -42,6 +41,8 @@ public class UserController implements Initializable, ControlledScreen {
     @FXML
     private Pane placeholder;
 
+    private boolean counter=true;
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
         comboBox.getItems().addAll("Authors", "Titles", "Publishers", "Genres");
@@ -56,18 +57,31 @@ public class UserController implements Initializable, ControlledScreen {
         boolean rented = false;
         String textValue;
         String comboValue;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+        Connection conect=null;
+        con= new MySQLDatabase("root","student","localhost","3306", "mydb");
+        if(con.connect(conect)){
+            System.out.println("Connected!");
+        }
+        else{
+            System.out.println("Not connected");
+
+        }
+
         if(comboBox.getValue() != null){
             textValue = searchText.getText();
             comboValue = comboBox.getValue().toString();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+
             alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("Please select area!");
             alert.showAndWait();
             return;
         }
+
 
         if(rentedRadio.isSelected()){
             rented = true;
@@ -76,21 +90,76 @@ public class UserController implements Initializable, ControlledScreen {
             rented = false;
         }
 
-        Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
-        }
-        else{
-            System.out.println("Not connected");
 
-        }
         ConcreteSearcher cs=new ConcreteSearcher(con);
         list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
+
+
+           if (rented == true || allRadio.isSelected() == true) {
+
+               ArrayList<String> values = new ArrayList<>();
+               Date db_Date = null;
+               ArrayList<ArrayList<String>> results1 = null;
+               ArrayList<String> wurf = new ArrayList<>();
+               //////////
+
+               wurf.add(this.myController.getUsername());
+               String user_id = "SELECT user_id FROM user where user_username=?";
+               results1 = con.getData(user_id, wurf, false);
+               values.add(results1.get(1).get(0));
+               //////////////
+
+               Date today = Calendar.getInstance().getTime();
+               DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+               DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+               /////
+
+               String tod = df.format(today) + " 20:00:00";
+               Date today_date = null;
+               try {
+                   today_date = (Date) df1.parse(tod);
+               } catch (ParseException e) {
+                   e.printStackTrace();
+               }
+               String date = "SELECT date_due FROM books_on_loan WHERE user_id=?";
+               ///////////
+               ArrayList<ArrayList<String>> results = con.getData(date, values, false);
+               for (int i = 1; i < results.size(); i++) {
+                   String dbDate = results.get(i).get(0).substring(0, results.get(i).get(0).indexOf("."));
+
+                   ///////////
+                   try {
+                       db_Date = (Date) df1.parse(dbDate);
+
+                   } catch (ParseException e) {
+                       e.printStackTrace();
+                   }
+
+                   if (db_Date.compareTo(today_date) > 0) {
+                       System.out.println("Alles gut");
+                   } else if (db_Date.compareTo(today_date) < 0) {
+                        if(counter){
+                            counter=false;
+                       alert_loan.setTitle("Rented Books");
+                       alert_loan.setContentText("You have Late Loans, Please check your books!!");
+                       alert_loan.showAndWait();
+                       return;}
+                   } else {
+                       if(counter){
+                           counter=false;
+                       alert_loan.setTitle("Rented Books");
+                       alert_loan.setContentText("You have to return book today!!");
+                       alert_loan.showAndWait();
+                       return;}
+                   }
+               }
+
+           }
+
         if(con.closeConnection()){
             System.out.println("connect closed ");
         }else{
