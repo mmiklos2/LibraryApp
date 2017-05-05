@@ -60,16 +60,7 @@ public class LibrarianController implements Initializable, ControlledScreen{
             return;
         }
 
-        Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
-        }
-        else{
-            System.out.println("Not connected");
-
-        }
-        ConcreteSearcher cs=new ConcreteSearcher(con);
+        ConcreteSearcher cs=new ConcreteSearcher(this.myController.getDbConnObject());
         System.out.println(textValue + ", " + comboValue);
         list = cs.search(textValue, comboValue, false, "");
         System.out.println("Size : " + list.size());
@@ -86,11 +77,6 @@ public class LibrarianController implements Initializable, ControlledScreen{
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
         placeholder.getChildren().add(pagination);
-        if(con.closeConnection()){
-            System.out.println("connect closed ");
-        }else{
-            System.out.println("connect did not closed ");
-        }
 
     }
 

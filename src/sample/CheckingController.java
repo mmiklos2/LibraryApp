@@ -39,50 +39,26 @@ public class CheckingController implements Initializable, ControlledScreen{
     }
 
     public void returnBook(ActionEvent actionEvent) {
-        Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
-        }
-        else{
-            System.out.println("Not connected");
 
-        }
         try{
-            con.deleteP(username.getText(), isbn.getText());
+            this.myController.getDbConnObject().deleteP(username.getText(), isbn.getText());
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        if(con.closeConnection()){
-            System.out.println("connect closed ");
-        }else{
-            System.out.println("connect did not closed ");
-        }
+
         myController.setScreen(Main.LIBRARIAN_SCREEN);
     }
 
     public void loanBook(ActionEvent actionEvent) {
-        Connection conect=null;
-        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
-        }
-        else{
-            System.out.println("Not connected");
 
-        }
         try{
-            con.setBook_On_Loan(username.getText(), isbn.getText());
+            this.myController.getDbConnObject().setBook_On_Loan(username.getText(), isbn.getText());
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        if(con.closeConnection()){
-            System.out.println("connect closed ");
-        }else{
-            System.out.println("connect did not closed ");
-        }
+
         myController.setScreen(Main.LIBRARIAN_SCREEN);
     }
 

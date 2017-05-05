@@ -55,16 +55,24 @@ public class LoginController implements Initializable, ControlledScreen{
 
     private void performLogin(){
         // PERFORM AUTHENTICATION
-        Connection conect=null;
         String role;
-        MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
+        MySQLDatabase con;
+        if(this.myController.getDbConnObject()==null){
+            Connection dbConn = null;
+            con = new MySQLDatabase("root","student","localhost","3306", "mydb");
+            if(con.connect(dbConn)){
+                System.out.println("Connected!");
+                myController.setDbConnObject(con);
+            }
+            else{
+                System.out.println("Not connected");
+
+            }
         }
         else{
-            System.out.println("Not connected");
-
+            con = this.myController.getDbConnObject();
         }
+
         try{
             role = con.login(username.getText(), password.getText());
             if(role.equals("U")) {
@@ -85,10 +93,6 @@ public class LoginController implements Initializable, ControlledScreen{
         catch (SQLException e){
             e.printStackTrace();
         }
-        if(con.closeConnection()){
-            System.out.println("connect closed ");
-        }else{
-            System.out.println("connect did not closed ");
-        }
+
     }
 }

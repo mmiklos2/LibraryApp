@@ -23,6 +23,16 @@ public class ScreensController extends StackPane{
     private String username = "";
     private String isbn = "";
 
+    public MySQLDatabase getDbConnObject() {
+        return dbConnObject;
+    }
+
+    public void setDbConnObject(MySQLDatabase dbConnObject) {
+        this.dbConnObject = dbConnObject;
+    }
+
+    private MySQLDatabase dbConnObject = null;
+
     public String getIsbn() {
         return isbn;
     }

@@ -24,7 +24,6 @@ public class UserController implements Initializable, ControlledScreen {
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
-    MySQLDatabase con;
 
     @FXML
     private TextField searchText;
@@ -59,15 +58,6 @@ public class UserController implements Initializable, ControlledScreen {
         String comboValue;
         Alert alert = new Alert(Alert.AlertType.WARNING);
         Alert alert_loan = new Alert(Alert.AlertType.WARNING);
-        Connection conect=null;
-        con= new MySQLDatabase("root","student","localhost","3306", "mydb");
-        if(con.connect(conect)){
-            System.out.println("Connected!");
-        }
-        else{
-            System.out.println("Not connected");
-
-        }
 
         if(comboBox.getValue() != null){
             textValue = searchText.getText();
@@ -91,7 +81,7 @@ public class UserController implements Initializable, ControlledScreen {
         }
 
 
-        ConcreteSearcher cs=new ConcreteSearcher(con);
+        ConcreteSearcher cs=new ConcreteSearcher(this.myController.getDbConnObject());
         list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
@@ -109,7 +99,7 @@ public class UserController implements Initializable, ControlledScreen {
 
                wurf.add(this.myController.getUsername());
                String user_id = "SELECT user_id FROM user where user_username=?";
-               results1 = con.getData(user_id, wurf, false);
+               results1 = this.myController.getDbConnObject().getData(user_id, wurf, false);
                values.add(results1.get(1).get(0));
                //////////////
 
@@ -127,7 +117,7 @@ public class UserController implements Initializable, ControlledScreen {
                }
                String date = "SELECT date_due FROM books_on_loan WHERE user_id=?";
                ///////////
-               ArrayList<ArrayList<String>> results = con.getData(date, values, false);
+               ArrayList<ArrayList<String>> results = this.myController.getDbConnObject().getData(date, values, false);
                for (int i = 1; i < results.size(); i++) {
                    String dbDate = results.get(i).get(0).substring(0, results.get(i).get(0).indexOf("."));
 
@@ -159,12 +149,6 @@ public class UserController implements Initializable, ControlledScreen {
                }
 
            }
-
-        if(con.closeConnection()){
-            System.out.println("connect closed ");
-        }else{
-            System.out.println("connect did not closed ");
-        }
 
     }
 
