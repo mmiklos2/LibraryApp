@@ -459,6 +459,18 @@ public class MySQLDatabase {
     }
 
     public void regLib(String fName, String lName, String email, String username, String password) {
+        ArrayList<ArrayList<String>> registered_users=null;
+        ArrayList<String> queryVals=new ArrayList<>();
+        queryVals.add(username);
+        queryVals.add(email);
+        registered_users=getData("SELECT * FROM user WHERE user_username = ? AND user_email = ?", queryVals, false);
+        if(registered_users.size()>1){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Register error");
+            alert_loan.setContentText("Username or email already in use");
+            alert_loan.showAndWait();
+            return;
+        }
         String role = "L";
         boolean setDataReturnValue = false;
         ArrayList<String> values = new ArrayList<>();
@@ -478,6 +490,18 @@ public class MySQLDatabase {
     }
 
     public void regUser(String fName, String lName, String email, String username, String password) throws SQLException {
+        ArrayList<ArrayList<String>> registered_users=null;
+        ArrayList<String> queryVals=new ArrayList<>();
+        queryVals.add(username);
+        queryVals.add(email);
+        registered_users=getData("SELECT * FROM user WHERE user_username = ? AND user_email = ?", queryVals, false);
+        if(registered_users.size()>1){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Register error");
+            alert_loan.setContentText("Username or email already in use");
+            alert_loan.showAndWait();
+            return;
+        }
         String role = "U";
         boolean setDataReturnValue = false;
         ArrayList<String> values = new ArrayList<>();

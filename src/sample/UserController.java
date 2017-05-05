@@ -130,7 +130,6 @@ public class UserController implements Initializable, ControlledScreen {
                    }
 
                    if (db_Date.compareTo(today_date) > 0) {
-                       System.out.println("Alles gut");
                    } else if (db_Date.compareTo(today_date) < 0) {
                         if(counter){
                             counter=false;
