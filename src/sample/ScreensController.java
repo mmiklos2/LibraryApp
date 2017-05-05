@@ -23,16 +23,6 @@ public class ScreensController extends StackPane{
     private String username = "";
     private String isbn = "";
 
-    public MySQLDatabase getDbConnObject() {
-        return dbConnObject;
-    }
-
-    public void setDbConnObject(MySQLDatabase dbConnObject) {
-        this.dbConnObject = dbConnObject;
-    }
-
-    private MySQLDatabase dbConnObject = null;
-
     public String getIsbn() {
         return isbn;
     }
@@ -106,15 +96,6 @@ public class ScreensController extends StackPane{
         } else{
             System.out.println("Screen hasn't been loaded!");
             return false;
-        }
-    }
-    
-    public boolean unloadScreen(String name) {
-        if(screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
-            return false;
-        } else {
-            return true;
         }
     }
 

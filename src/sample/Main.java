@@ -1,11 +1,13 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -21,6 +23,16 @@ public class Main extends Application {
     public static final String ADDING_SCREEN_FXML = "addingScreen.fxml";
     public static final String CHECKING_SCREEN = "checking";
     public static final String CHECKING_SCREEN_FXML = "checkingScreen.fxml";
+
+    private static MySQLDatabase dbConn;
+
+    public static MySQLDatabase getDbConn() {
+        return Main.dbConn;
+    }
+
+    public static void setDbConn(MySQLDatabase dbConn) {
+        Main.dbConn = dbConn;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -38,6 +50,14 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(we -> {
+            if(Main.getDbConn().closeConnection()){
+                System.out.println("Connection closed!");
+            }
+            else{
+                System.out.println("Connection closing failed!");
+            }
+        });
     }
 
     public static void main(String[] args) {
