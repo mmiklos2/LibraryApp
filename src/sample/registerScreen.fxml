@@ -10,43 +10,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #979C9C;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RegisterController">
+<AnchorPane onKeyPressed="#enterRegister" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #979C9C;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RegisterController">
     <children>
         <Pane layoutX="202.0" layoutY="36.0" prefHeight="538.0" prefWidth="397.0" style="-fx-background-color: #F2EBC7; -fx-background-radius: 10px;">
             <children>
-                <TextField fx:id="fName" layoutX="186.0" layoutY="128.0" />
-                <TextField fx:id="email" layoutX="186.0" layoutY="217.0" />
-                <Label layoutX="66.0" layoutY="133.0" text="First Name:">
-                    <font>
-                        <Font name="Helvetica Neue Light" size="18.0" />
-                    </font>
-                </Label>
-                <Label layoutX="66.0" layoutY="219.0" text="Email:">
-                    <font>
-                        <Font name="Helvetica Neue Light" size="18.0" />
-                    </font>
-                </Label>
                 <ImageView fitHeight="98.0" fitWidth="105.0" layoutX="150.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@book_icon.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="100.0" layoutY="468.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #962D3E;" text="&lt; Back">
+                <Label layoutX="66.0" layoutY="133.0" text="First Name:">
                     <font>
                         <Font name="Helvetica Neue Light" size="18.0" />
                     </font>
-                </Button>
-                <Button layoutX="207.0" layoutY="468.0" mnemonicParsing="false" onAction="#triggerRegistration" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #348899;" text="Register">
-                    <font>
-                        <Font name="Helvetica Neue Light" size="18.0" />
-                    </font>
-                </Button>
+                </Label>
+                <TextField fx:id="fName" layoutX="186.0" layoutY="128.0" />
             <Label layoutX="66.0" layoutY="176.0" text="Last Name:">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Label>
             <TextField fx:id="lName" layoutX="186.0" layoutY="171.0" />
+                <Label layoutX="66.0" layoutY="219.0" text="Email:">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="email" layoutX="186.0" layoutY="217.0" />
             <Label layoutX="66.0" layoutY="266.0" text="Username:">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
@@ -58,14 +48,24 @@
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Label>
+            <PasswordField fx:id="password" layoutX="186.0" layoutY="309.0" />
             <CheckBox fx:id="libCheck" layoutX="67.0" layoutY="356.0" mnemonicParsing="false" onAction="#enableAdminCode" text="Register as a librarian" />
-            <TextField fx:id="libCode" disable="true" layoutX="187.0" layoutY="392.0" />
             <Label layoutX="67.0" layoutY="394.0" text="Admin code:">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Label>
-            <PasswordField fx:id="password" layoutX="186.0" layoutY="309.0" />
+            <TextField fx:id="libCode" disable="true" layoutX="187.0" layoutY="392.0" />
+                <Button layoutX="100.0" layoutY="468.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #962D3E;" text="&lt; Back">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="18.0" />
+                    </font>
+                </Button>
+                <Button layoutX="207.0" layoutY="468.0" mnemonicParsing="false" onAction="#triggerRegistration" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #348899;" text="Register">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="18.0" />
+                    </font>
+                </Button>
             </children>
         </Pane>
     </children>

@@ -13,23 +13,18 @@
    <children>
       <Pane layoutX="36.0" layoutY="32.0" prefHeight="156.0" prefWidth="355.0" style="-fx-background-color: #343642;">
          <children>
-            <TextField fx:id="searchText" layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0" />
             <Label layoutX="52.0" layoutY="26.0" text="Search for: " textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Label>
+            <TextField fx:id="searchText" layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0" />
             <Label layoutX="52.0" layoutY="67.0" text="Search in:" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue Light" size="18.0" />
                </font>
             </Label>
             <ComboBox fx:id="comboBox" layoutX="163.0" layoutY="65.0" prefWidth="150.0" promptText="Select area..." />
-            <Button layoutX="235.0" layoutY="109.0" mnemonicParsing="false" onAction="#buildSearch" prefHeight="28.0" prefWidth="78.0" text="Go!">
-               <font>
-                  <Font name="Helvetica Neue Light" size="14.0" />
-               </font>
-            </Button>
             <RadioButton fx:id="allRadio" layoutX="52.0" layoutY="114.0" mnemonicParsing="false" selected="true" text="All" textFill="WHITE">
                <font>
                   <Font name="Helvetica" size="14.0" />
@@ -43,6 +38,11 @@
                   <Font name="Helvetica Light" size="14.0" />
                </font>
             </RadioButton>
+            <Button layoutX="235.0" layoutY="109.0" mnemonicParsing="false" onAction="#buildSearch" prefHeight="28.0" prefWidth="78.0" text="Go!">
+               <font>
+                  <Font name="Helvetica Neue Light" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane fx:id="placeholder" layoutX="36.0" layoutY="225.0" prefHeight="357.0" prefWidth="727.0" />

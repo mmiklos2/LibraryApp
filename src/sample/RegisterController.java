@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -44,6 +46,26 @@ public class RegisterController implements Initializable, ControlledScreen{
     }
 
     public void triggerRegistration(ActionEvent actionEvent) {
+        performRegistration();
+    }
+
+    public void enableAdminCode(ActionEvent actionEvent) {
+        boolean selected = libCheck.isSelected();
+        if(selected){
+            libCode.setDisable(false);
+        }
+        else{
+            libCode.setDisable(true);
+        }
+    }
+
+    public void enterRegister(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            performRegistration();
+        }
+    }
+
+    private void performRegistration(){
         // WRITE NEW USER TO DB
         Connection conect=null;
         MySQLDatabase con= new MySQLDatabase("root","student","localhost","3306", "mydb");
@@ -71,15 +93,5 @@ public class RegisterController implements Initializable, ControlledScreen{
             System.out.println("connect did not closed ");
         }
         myController.setScreen(Main.LOGIN_SCREEN);
-    }
-
-    public void enableAdminCode(ActionEvent actionEvent) {
-        boolean selected = libCheck.isSelected();
-        if(selected){
-            libCode.setDisable(false);
-        }
-        else{
-            libCode.setDisable(true);
-        }
     }
 }

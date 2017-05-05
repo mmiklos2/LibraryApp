@@ -8,6 +8,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import sample.ControlledScreen;
 import sample.ScreensController;
 
@@ -42,6 +44,16 @@ public class LoginController implements Initializable, ControlledScreen{
     }
 
     public void triggerLogin(ActionEvent actionEvent) {
+        performLogin();
+    }
+
+    public void enterSignIn(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            performLogin();
+        }
+    }
+
+    private void performLogin(){
         // PERFORM AUTHENTICATION
         Connection conect=null;
         String role;
@@ -78,6 +90,5 @@ public class LoginController implements Initializable, ControlledScreen{
         }else{
             System.out.println("connect did not closed ");
         }
-
     }
 }
