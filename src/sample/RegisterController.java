@@ -70,7 +70,7 @@ public class RegisterController implements Initializable, ControlledScreen{
         MySQLDatabase con;
         if(Main.getDbConn()==null){
             Connection dbConn = null;
-            con = new MySQLDatabase("root","student","localhost","3306", "mydb");
+            con = myController.setConnectionProperties();
             if(con.connect(dbConn)){
                 System.out.println("Connected!");
                 Main.setDbConn(con);

@@ -10,28 +10,23 @@ import java.util.ArrayList;
 public class MySQLDatabase {
 
 
-    private static Connection connection;
+    private Connection connection = null;
 
-    private static String username = " ";
-    private static String password = " ";
-    private static String port = "";
-    private static String server = "";
-    private static String dbName = "";
+    private String username;
+    private String password;
+    private String dbms;
 
-
-    public MySQLDatabase(String _username, String _password, String _server, String _port, String _dbName) {
-        username = _username;
-        password = _password;
-        server = _server;
-        port = _port;
-        dbName = _dbName;
-
+    public MySQLDatabase(String username, String password, String dbms) {
+        this.username = username;
+        this.password = password;
+        this.dbms = dbms;
     }
+
 
     public boolean connect(Connection con) {
         try {
 
-            con = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
+            con = DriverManager.getConnection(dbms, username, password);
             System.out.println("Connected");
         } catch (SQLException sql) {
             System.out.println("Connecting to the database failed.");

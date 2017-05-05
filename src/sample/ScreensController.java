@@ -12,7 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * Created by lukacrnjakovic on 4/27/17.
@@ -41,6 +46,27 @@ public class ScreensController extends StackPane{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public MySQLDatabase setConnectionProperties(){
+        Properties dbInfo = new Properties();
+        try
+        {
+            InputStream infoStream = new FileInputStream("/Users/lukacrnjakovic/IdeaProjects/LibraryAppRak/src/sample/dbinfo.properties");
+            dbInfo.load(infoStream);
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Property file not found!");
+            System.exit(0);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while reading the property file");
+            System.exit(0);
+        }
+
+        return new MySQLDatabase(dbInfo.getProperty("username"), dbInfo.getProperty("password"), dbInfo.getProperty("dbms"));
     }
 
     public boolean loadScreen(String name, String resource) {
