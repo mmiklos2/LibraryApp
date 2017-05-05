@@ -34,7 +34,7 @@ public class MySQLDatabase {
             con = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
             System.out.println("Connected");
         } catch (SQLException sql) {
-            System.out.println(sql);
+            System.out.println("Connecting to the database failed.");
         }
         if (con != null) {
             connection = con;
@@ -205,6 +205,13 @@ public class MySQLDatabase {
     }
 
     public void postP(String book_Title, String book_ISBN, String book_YearofPublication, String book_Copies, String book_Location, String publisher_Name, String publisher_City, String genre_Name, String author_FirstName, String author_LastName) throws SQLException {
+        if(!book_Title.equals("") && !book_Location.equals("") && !publisher_City.equals("") && !publisher_Name.equals("") && !genre_Name.equals("") && !author_FirstName.equals("") && !author_LastName.equals("") && !book_Copies.matches("-?\\d+(\\.\\d+)?") && !book_ISBN.matches("-?\\d+(\\.\\d+)?") && !book_YearofPublication.matches("-?\\d+(\\.\\d+)?")){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Add book error");
+            alert_loan.setContentText("Book data is not valid.");
+            alert_loan.showAndWait();
+            return;
+        }
         startTrans();
         //////////////////////// FOR PUBLISHER select
         ArrayList<ArrayList<String>> results = null;
@@ -215,7 +222,7 @@ public class MySQLDatabase {
         ArrayList<String> publish = new ArrayList<>();
         ///////////////
 
-        /////////////COLEECTIONS
+        /////////////COLLECTIONS
         ArrayList<String> collection_Books = new ArrayList<>();
         ArrayList<String> collection_Author = new ArrayList<>();
         ArrayList<String> collection_Publisher = new ArrayList<>();
@@ -302,11 +309,6 @@ public class MySQLDatabase {
         results3 = getData(book_isbn, isbn, false);
         collection_AuthorBook.add(results3.get(1).get(0));
         setDataReturnValue = setData(author_book, collection_AuthorBook, false);
-        if (setDataReturnValue) {
-            System.out.println("works");
-        } else {
-            System.out.println("0 rows found!");
-        }
         endTrans();
     }
 
@@ -374,22 +376,15 @@ public class MySQLDatabase {
 
 
         LocalDate today = LocalDate.now();
-        System.out.println("Current date: " + today);
 
         //add 2 week to the current date
         LocalDate next2Week = today.plus(2, ChronoUnit.WEEKS);
-        System.out.println("Next week: " + next2Week);
 
         values.add(next2Week + " 20:00:00");
         values.add("0");
         String inst = "INSERT INTO books_on_loan (book_id,user_id,date_due,returned) " + "VALUES(?, ?, ?, ?)";
         startTrans();
         setDataReturnValue = setData(inst, values, false);
-        if (setDataReturnValue) {
-            System.out.println("works");
-        } else {
-            System.out.println("0 rows found!");
-        }
         endTrans();
     }
 
@@ -477,11 +472,7 @@ public class MySQLDatabase {
         String st = "INSERT INTO user (user_username, user_email, user_password, user_firstname, user_lastname, role) " + "VALUES(?,?,?,?,?,?)";
         setDataReturnValue = setData(st, values, false);
 
-        if (setDataReturnValue) {
-            System.out.println("works");
-        } else {
-            System.out.println("0 rows found!");
-        }
+
         endTrans();
 
     }
@@ -500,11 +491,7 @@ public class MySQLDatabase {
         String st = "INSERT INTO user (user_username, user_email, user_password, user_firstname, user_lastname, role) " + "VALUES(?,?,?,?,?,?)";
         setDataReturnValue = setData(st, values, false);
 
-        if (setDataReturnValue) {
-            System.out.println("works");
-        } else {
-            System.out.println("0 rows found!");
-        }
+
         endTrans();
 
     }
