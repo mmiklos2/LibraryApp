@@ -129,7 +129,7 @@ public class MySQLDatabase {
 		try {
 			PreparedStatement stmnt = prepare(SQLStatement, values, search);
 			int rowsAffected = stmnt.executeUpdate();
-			if (rowsAffected <= 1)
+			if (rowsAffected >= 1)
 				return true;
 			else
 				return false;
@@ -414,11 +414,25 @@ public class MySQLDatabase {
 		String book_isbn1= "SELECT book_id FROM books where book_isbn=?";
 		geto.add(book_isbn);
 		results= getData(book_isbn1,geto,false);
+		if(results.size()==1){
+			Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+			alert_loan.setTitle("Book error");
+			alert_loan.setContentText("This book does not exist");
+			alert_loan.showAndWait();
+			return;
+		}
 		values.add(results.get(1).get(0));
 		wurf.add(username);
 		String user_id= "SELECT user_id FROM user where user_username=?";
 
 		results1= getData(user_id,wurf,false);
+		if(results1.size()==1){
+			Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+			alert_loan.setTitle("User error");
+			alert_loan.setContentText("This user does not exist");
+			alert_loan.showAndWait();
+			return;
+		}
 		values.add(results1.get(1).get(0));
 
 			dataFound = setData("DELETE FROM books_on_loan WHERE book_id=? AND user_id=?", values,false);
