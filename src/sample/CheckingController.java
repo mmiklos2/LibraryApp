@@ -41,7 +41,7 @@ public class CheckingController implements Initializable, ControlledScreen{
     public void returnBook(ActionEvent actionEvent) {
 
         try{
-            this.myController.getDbConnObject().deleteP(username.getText(), isbn.getText());
+            Main.getDbConn().deleteP(username.getText(), isbn.getText());
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class CheckingController implements Initializable, ControlledScreen{
     public void loanBook(ActionEvent actionEvent) {
 
         try{
-            this.myController.getDbConnObject().setBook_On_Loan(username.getText(), isbn.getText());
+            Main.getDbConn().setBook_On_Loan(username.getText(), isbn.getText());
         }
         catch (SQLException e){
             e.printStackTrace();

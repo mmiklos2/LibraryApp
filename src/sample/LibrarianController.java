@@ -60,7 +60,7 @@ public class LibrarianController implements Initializable, ControlledScreen{
             return;
         }
 
-        ConcreteSearcher cs=new ConcreteSearcher(this.myController.getDbConnObject());
+        ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
         System.out.println(textValue + ", " + comboValue);
         list = cs.search(textValue, comboValue, false, "");
         System.out.println("Size : " + list.size());

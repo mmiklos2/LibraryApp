@@ -35,7 +35,7 @@ public class AddingController implements Initializable, ControlledScreen{
     public void addBook(ActionEvent actionEvent) {
 
         try{
-            this.myController.getDbConnObject().postP(title.getText(), isbn.getText(), year.getText(), copies.getText(), location.getText(), pubName.getText(), pubCity.getText(), genre.getText(), fName.getText(), lName.getText());
+            Main.getDbConn().postP(title.getText(), isbn.getText(), year.getText(), copies.getText(), location.getText(), pubName.getText(), pubCity.getText(), genre.getText(), fName.getText(), lName.getText());
         }
         catch (SQLException e){
             e.printStackTrace();

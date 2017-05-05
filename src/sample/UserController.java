@@ -81,7 +81,7 @@ public class UserController implements Initializable, ControlledScreen {
         }
 
 
-        ConcreteSearcher cs=new ConcreteSearcher(this.myController.getDbConnObject());
+        ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
         list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
@@ -99,7 +99,7 @@ public class UserController implements Initializable, ControlledScreen {
 
                wurf.add(this.myController.getUsername());
                String user_id = "SELECT user_id FROM user where user_username=?";
-               results1 = this.myController.getDbConnObject().getData(user_id, wurf, false);
+               results1 = Main.getDbConn().getData(user_id, wurf, false);
                values.add(results1.get(1).get(0));
                //////////////
 
@@ -117,7 +117,7 @@ public class UserController implements Initializable, ControlledScreen {
                }
                String date = "SELECT date_due FROM books_on_loan WHERE user_id=?";
                ///////////
-               ArrayList<ArrayList<String>> results = this.myController.getDbConnObject().getData(date, values, false);
+               ArrayList<ArrayList<String>> results = Main.getDbConn().getData(date, values, false);
                for (int i = 1; i < results.size(); i++) {
                    String dbDate = results.get(i).get(0).substring(0, results.get(i).get(0).indexOf("."));
 

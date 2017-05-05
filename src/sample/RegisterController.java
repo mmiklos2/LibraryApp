@@ -68,12 +68,12 @@ public class RegisterController implements Initializable, ControlledScreen{
     private void performRegistration(){
         // WRITE NEW USER TO DB
         MySQLDatabase con;
-        if(this.myController.getDbConnObject()==null){
+        if(Main.getDbConn()==null){
             Connection dbConn = null;
-            con = new MySQLDatabase("root","student","localhost","3306", "mydb");
+            con = myController.setConnectionProperties();
             if(con.connect(dbConn)){
                 System.out.println("Connected!");
-                myController.setDbConnObject(con);
+                Main.setDbConn(con);
             }
             else{
                 System.out.println("Not connected");
@@ -81,7 +81,7 @@ public class RegisterController implements Initializable, ControlledScreen{
             }
         }
         else{
-            con = this.myController.getDbConnObject();
+            con = Main.getDbConn();
         }
         try{
             if(libCode.getText().equals("hujak")){
