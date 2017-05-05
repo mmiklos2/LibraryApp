@@ -329,16 +329,29 @@ public class MySQLDatabase {
         ArrayList<ArrayList<String>> book_copies_results= null;
 		ArrayList<String> book_id_values= new ArrayList<>();
 		ArrayList<String> user_id_values= new ArrayList<>();
-        ArrayList<String> book_copies_values= new ArrayList<>();
         book_id_values.add(book_isbn);
 
 		String book_isbn1= "SELECT book_id FROM books where book_isbn=?";
         book_id_results= getData(book_isbn1,book_id_values,false);
+        if(book_id_results.size()==1){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Book error");
+            alert_loan.setContentText("This book does not exist");
+            alert_loan.showAndWait();
+            return;
+        }
 		String book_id=book_id_results.get(1).get(0);
 		values.add(book_id);
         user_id_values.add(username);
 		String user_id= "SELECT user_id FROM user where user_username=?";
         user_id_results= getData(user_id,user_id_values,false);
+        if(user_id_results.size()==1){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("User error");
+            alert_loan.setContentText("This user does not exist");
+            alert_loan.showAndWait();
+            return;
+        }
 		values.add(user_id_results.get(1).get(0));
 
         ArrayList<ArrayList<String>> loaned_book_results=null;
@@ -356,6 +369,15 @@ public class MySQLDatabase {
                 alert_loan.showAndWait();
                 return;
             }
+        }
+
+        book_copies_results=getData("SELECT book_copies FROM books where book_id =?", loaned_book_values, false);
+        if(Integer.parseInt(book_copies_results.get(1).get(0))<=loaned_book_results.size()-1){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Rent error");
+            alert_loan.setContentText("All the copies of this book are already loaned");
+            alert_loan.showAndWait();
+            return;
         }
 
 
