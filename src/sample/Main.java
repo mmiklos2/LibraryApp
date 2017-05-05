@@ -50,14 +50,15 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(we -> {
-            if(Main.getDbConn().closeConnection()){
-                System.out.println("Connection closed!");
-            }
-            else{
-                System.out.println("Connection closing failed!");
-            }
-        });
+        if(Main.getDbConn()!=null) {
+            primaryStage.setOnCloseRequest(we -> {
+                if (Main.getDbConn().closeConnection()) {
+                    System.out.println("Connection closed!");
+                } else {
+                    System.out.println("Connection closing failed!");
+                }
+            });
+        }
     }
 
     public static void main(String[] args) {
