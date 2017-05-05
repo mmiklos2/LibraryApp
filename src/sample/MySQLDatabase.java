@@ -337,12 +337,19 @@ public class MySQLDatabase {
         String book_id = book_id_results.get(1).get(0);
         values.add(book_id);
         user_id_values.add(username);
-        String user_id = "SELECT user_id FROM user where user_username=?";
+        String user_id = "SELECT user_id, role FROM user where user_username=?";
         user_id_results = getData(user_id, user_id_values, false);
         if (user_id_results.size() == 1) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("User error");
             alert_loan.setContentText("This user does not exist");
+            alert_loan.showAndWait();
+            return;
+        }
+        if(user_id_results.get(1).get(1).equals("L")){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("User error");
+            alert_loan.setContentText("A librarian cannot loan a book");
             alert_loan.showAndWait();
             return;
         }
