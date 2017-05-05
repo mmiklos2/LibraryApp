@@ -123,9 +123,9 @@ public class ConcreteSearcher {
                     anAuthor = new Author(Integer.parseInt(queryResponse.get(i).get(0)), queryResponse.get(i).get(1), queryResponse.get(i).get(2));
                     ArrayList<ArrayList<String>> author_bookData = db.getData("SELECT * FROM author_book WHERE author_id = " + anAuthor.getAuthor_id() + ";", true);
                     for (int j = 1; j < author_bookData.size(); j++) {
-                        anAuthor_book = new Author_Book(Integer.parseInt(author_bookData.get(j).get(0)), Integer.parseInt(author_bookData.get(j).get(1)));
+                        anAuthor_book = new Author_Book(Integer.parseInt(author_bookData.get(j).get(1)), Integer.parseInt(author_bookData.get(j).get(0)));
                         ArrayList<ArrayList<String>> bookData = db.getData("SELECT * FROM books WHERE book_id = " + anAuthor_book.getBook_id() + ";", true);
-                        aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
+                        aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(1).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
 
                         aPublisher=getPublisher(aBook);
                         aGenre=getGenres(aBook);
@@ -140,7 +140,7 @@ public class ConcreteSearcher {
                     aPublisher = new Publisher(Integer.parseInt(queryResponse.get(i).get(0)), queryResponse.get(i).get(1), queryResponse.get(i).get(2));
                     ArrayList<ArrayList<String>> bookData= db.getData("SELECT * FROM books WHERE book_publisher_id = "+ aPublisher.getPublisherId() +"",true);
                     for(int j=1; j<bookData.size();j++){
-                        aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
+                        aBook = new Books(Integer.parseInt(bookData.get(j).get(0)), bookData.get(j).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(j).get(3)), Integer.parseInt(bookData.get(j).get(4)), Integer.parseInt(bookData.get(j).get(5)), bookData.get(j).get(6), Integer.parseInt(bookData.get(j).get(7)));
                         authorList=getAuthorList(aBook);
                         aGenre=getGenres(aBook);
                         DetailedBook aDetailedBook= new DetailedBook(new SimpleStringProperty(aBook.getBook_isbn()), new SimpleStringProperty(aBook.getBook_title()), aBook.getBook_publisher_year(), aBook.getBook_copies(), new SimpleStringProperty(aBook.getBook_location()), new SimpleStringProperty(aGenre.getGenre_name()), new SimpleStringProperty(aPublisher.getPublisher_name()), new SimpleStringProperty(authorList), new SimpleStringProperty(("none")));
@@ -153,7 +153,7 @@ public class ConcreteSearcher {
                     aGenre=new Genres(Integer.parseInt(queryResponse.get(i).get(0)), queryResponse.get(i).get(1));
                     ArrayList<ArrayList<String>> bookData=db.getData("SELECT * FROM books WHERE book_genre_id = "+ aGenre.getGenre_id() +";",true);
                     for(int j=1; j<bookData.size();j++){
-                        aBook = new Books(Integer.parseInt(bookData.get(1).get(0)), bookData.get(1).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(1).get(3)), Integer.parseInt(bookData.get(1).get(4)), Integer.parseInt(bookData.get(1).get(5)), bookData.get(1).get(6), Integer.parseInt(bookData.get(1).get(7)));
+                        aBook = new Books(Integer.parseInt(bookData.get(j).get(0)), bookData.get(j).get(1), bookData.get(j).get(2), Integer.parseInt(bookData.get(j).get(3)), Integer.parseInt(bookData.get(j).get(4)), Integer.parseInt(bookData.get(j).get(5)), bookData.get(j).get(6), Integer.parseInt(bookData.get(j).get(7)));
                         authorList=getAuthorList(aBook);
                         aPublisher=getPublisher(aBook);
 
@@ -203,7 +203,7 @@ public class ConcreteSearcher {
         ArrayList<ArrayList<String>> author_bookData = db.getData("SELECT * FROM author_book WHERE book_id = " + aBook.getBook_id() + ";", true);
         String authorList="";
         for (int k = 1; k < author_bookData.size(); k++) {
-            Author_Book anAuthor_book = new Author_Book(Integer.parseInt(author_bookData.get(k).get(0)), Integer.parseInt(author_bookData.get(k).get(1)));
+            Author_Book anAuthor_book = new Author_Book(Integer.parseInt(author_bookData.get(k).get(1)), Integer.parseInt(author_bookData.get(k).get(0)));
             ArrayList<ArrayList<String>> authorData = db.getData("SELECT * FROM author WHERE author_id = " + anAuthor_book.getAuthor_id() + ";", true);
             Author anAuthor = new Author(Integer.parseInt(authorData.get(1).get(0)), authorData.get(1).get(1), authorData.get(1).get(2));
             authorList += anAuthor.getAuthor_firstname() + " " + anAuthor.getAuthor_lastname();
