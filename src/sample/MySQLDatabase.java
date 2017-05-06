@@ -496,11 +496,18 @@ public class MySQLDatabase {
         ArrayList<String> queryVals=new ArrayList<>();
         queryVals.add(username);
         queryVals.add(email);
-        registered_users=getData("SELECT * FROM user WHERE user_username = ? AND user_email = ?", queryVals, false);
+        registered_users=getData("SELECT * FROM user WHERE user_username = ? OR user_email = ?", queryVals, false);
         if(registered_users.size()>1){
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("Register error");
             alert_loan.setContentText("Username or email already in use");
+            alert_loan.showAndWait();
+            return;
+        }
+        if(fName.isEmpty() || lName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()){
+            Alert alert_loan = new Alert(Alert.AlertType.WARNING);
+            alert_loan.setTitle("Register error");
+            alert_loan.setContentText("Please fill in all fields!");
             alert_loan.showAndWait();
             return;
         }
