@@ -48,6 +48,8 @@ public class CheckingController implements Initializable, ControlledScreen{
         }
 
         myController.setScreen(Main.LIBRARIAN_SCREEN);
+        username.clear();
+        isbn.clear();
     }
 
     public void loanBook(ActionEvent actionEvent) {
@@ -60,6 +62,8 @@ public class CheckingController implements Initializable, ControlledScreen{
         }
 
         myController.setScreen(Main.LIBRARIAN_SCREEN);
+        username.clear();
+        isbn.clear();
     }
 
     public void loadIsbn(MouseEvent mouseEvent) {
