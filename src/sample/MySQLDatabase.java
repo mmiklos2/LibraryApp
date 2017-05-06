@@ -200,7 +200,7 @@ public class MySQLDatabase {
     }
 
     public void postP(String book_Title, String book_ISBN, String book_YearofPublication, String book_Copies, String book_Location, String publisher_Name, String publisher_City, String genre_Name, String author_FirstName, String author_LastName) throws SQLException {
-        if(!book_Title.equals("") && !book_Location.equals("") && !publisher_City.equals("") && !publisher_Name.equals("") && !genre_Name.equals("") && !author_FirstName.equals("") && !author_LastName.equals("") && !book_Copies.matches("-?\\d+(\\.\\d+)?") && !book_ISBN.matches("-?\\d+(\\.\\d+)?") && !book_YearofPublication.matches("-?\\d+(\\.\\d+)?")){
+        if (!book_Title.equals("") && !book_Location.equals("") && !publisher_City.equals("") && !publisher_Name.equals("") && !genre_Name.equals("") && !author_FirstName.equals("") && !author_LastName.equals("") && !book_Copies.matches("-?\\d+(\\.\\d+)?") && !book_ISBN.matches("-?\\d+(\\.\\d+)?") && !book_YearofPublication.matches("-?\\d+(\\.\\d+)?")) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("Add book error");
             alert_loan.setContentText("Book data is not valid.");
@@ -341,7 +341,7 @@ public class MySQLDatabase {
             alert_loan.showAndWait();
             return;
         }
-        if(user_id_results.get(1).get(1).equals("L")){
+        if (user_id_results.get(1).get(1).equals("L")) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("User error");
             alert_loan.setContentText("A librarian cannot loan a book");
@@ -461,12 +461,12 @@ public class MySQLDatabase {
     }
 
     public void regLib(String fName, String lName, String email, String username, String password) {
-        ArrayList<ArrayList<String>> registered_users=null;
-        ArrayList<String> queryVals=new ArrayList<>();
+        ArrayList<ArrayList<String>> registered_users = null;
+        ArrayList<String> queryVals = new ArrayList<>();
         queryVals.add(username);
         queryVals.add(email);
-        registered_users=getData("SELECT * FROM user WHERE user_username = ? AND user_email = ?", queryVals, false);
-        if(registered_users.size()>1){
+        registered_users = getData("SELECT * FROM user WHERE user_username = ? AND user_email = ?", queryVals, false);
+        if (registered_users.size() > 1) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("Register error");
             alert_loan.setContentText("Username or email already in use");
@@ -492,19 +492,19 @@ public class MySQLDatabase {
     }
 
     public void regUser(String fName, String lName, String email, String username, String password) throws SQLException {
-        ArrayList<ArrayList<String>> registered_users=null;
-        ArrayList<String> queryVals=new ArrayList<>();
+        ArrayList<ArrayList<String>> registered_users = null;
+        ArrayList<String> queryVals = new ArrayList<>();
         queryVals.add(username);
         queryVals.add(email);
-        registered_users=getData("SELECT * FROM user WHERE user_username = ? OR user_email = ?", queryVals, false);
-        if(registered_users.size()>1){
+        registered_users = getData("SELECT * FROM user WHERE user_username = ? OR user_email = ?", queryVals, false);
+        if (registered_users.size() > 1) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("Register error");
             alert_loan.setContentText("Username or email already in use");
             alert_loan.showAndWait();
             return;
         }
-        if(fName.isEmpty() || lName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()){
+        if (fName.isEmpty() || lName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
             Alert alert_loan = new Alert(Alert.AlertType.WARNING);
             alert_loan.setTitle("Register error");
             alert_loan.setContentText("Please fill in all fields!");

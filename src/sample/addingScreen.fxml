@@ -1,119 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddingController">
-   <children>
-      <Pane layoutX="24.0" layoutY="50.0" prefHeight="189.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
-         <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Title" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="title" layoutX="175.0" layoutY="12.0" />
-            <TextField fx:id="isbn" layoutX="175.0" layoutY="48.0" />
-            <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="86.0" text="Year of Publication" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="year" layoutX="175.0" layoutY="84.0" />
-            <TextField fx:id="copies" layoutX="175.0" layoutY="118.0" />
-            <Label layoutX="14.0" layoutY="120.0" text="No. of Copies" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="location" layoutX="175.0" layoutY="151.0" />
-            <Label layoutX="14.0" layoutY="153.0" text="Location" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Label layoutX="24.0" layoutY="27.0" style="-fx-background-color: #962D3E;" text="Book Info" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="24.0" layoutY="265.0" style="-fx-background-color: #962D3E;" text="Publisher Info" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="18.0" />
-         </font>
-      </Label>
-      <Pane layoutX="24.0" layoutY="288.0" prefHeight="89.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
-         <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Publisher Name" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="pubName" layoutX="175.0" layoutY="13.0" />
-            <TextField fx:id="pubCity" layoutX="175.0" layoutY="49.0" />
-            <Label layoutX="14.0" layoutY="50.0" text="Publisher City" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Label layoutX="24.0" layoutY="414.0" style="-fx-background-color: #962D3E;" text="Genre Info" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="18.0" />
-         </font>
-      </Label>
-      <Pane layoutX="24.0" layoutY="437.0" prefHeight="52.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
-         <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Genre " textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="genre" layoutX="175.0" layoutY="13.0" />
-         </children>
-      </Pane>
-      <Label layoutX="414.0" layoutY="27.0" style="-fx-background-color: #962D3E;" text="Author Info" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="18.0" />
-         </font>
-      </Label>
-      <Pane layoutX="414.0" layoutY="50.0" prefHeight="89.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
-         <children>
-            <Label layoutX="14.0" layoutY="14.0" text="First Name" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="fName" layoutX="175.0" layoutY="12.0" />
-            <TextField fx:id="lName" layoutX="175.0" layoutY="48.0" />
-            <Label layoutX="14.0" layoutY="50.0" text="Last Name" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Button layoutX="604.0" layoutY="444.0" mnemonicParsing="false" onAction="#addBook" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #348899;" text="Add Book" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="458.0" layoutY="444.0" mnemonicParsing="false" onAction="#goBack" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #348899;" text="Go Back" textFill="WHITE">
-         <font>
-            <Font name="Helvetica Neue Light" size="20.0" />
-         </font>
-      </Button>
-   </children>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.AddingController">
+    <children>
+        <Pane layoutX="24.0" layoutY="50.0" prefHeight="189.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Title" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="title" layoutX="175.0" layoutY="12.0"/>
+                <TextField fx:id="isbn" layoutX="175.0" layoutY="48.0"/>
+                <Label layoutX="14.0" layoutY="50.0" text="ISBN" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="86.0" text="Year of Publication" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="year" layoutX="175.0" layoutY="84.0"/>
+                <TextField fx:id="copies" layoutX="175.0" layoutY="118.0"/>
+                <Label layoutX="14.0" layoutY="120.0" text="No. of Copies" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="location" layoutX="175.0" layoutY="151.0"/>
+                <Label layoutX="14.0" layoutY="153.0" text="Location" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Label layoutX="24.0" layoutY="27.0" style="-fx-background-color: #962D3E;" text="Book Info" textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="24.0" layoutY="265.0" style="-fx-background-color: #962D3E;" text="Publisher Info"
+               textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="18.0"/>
+            </font>
+        </Label>
+        <Pane layoutX="24.0" layoutY="288.0" prefHeight="89.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Publisher Name" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="pubName" layoutX="175.0" layoutY="13.0"/>
+                <TextField fx:id="pubCity" layoutX="175.0" layoutY="49.0"/>
+                <Label layoutX="14.0" layoutY="50.0" text="Publisher City" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Label layoutX="24.0" layoutY="414.0" style="-fx-background-color: #962D3E;" text="Genre Info" textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="18.0"/>
+            </font>
+        </Label>
+        <Pane layoutX="24.0" layoutY="437.0" prefHeight="52.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Genre " textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="genre" layoutX="175.0" layoutY="13.0"/>
+            </children>
+        </Pane>
+        <Label layoutX="414.0" layoutY="27.0" style="-fx-background-color: #962D3E;" text="Author Info"
+               textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="18.0"/>
+            </font>
+        </Label>
+        <Pane layoutX="414.0" layoutY="50.0" prefHeight="89.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="First Name" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="fName" layoutX="175.0" layoutY="12.0"/>
+                <TextField fx:id="lName" layoutX="175.0" layoutY="48.0"/>
+                <Label layoutX="14.0" layoutY="50.0" text="Last Name" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="16.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Button layoutX="604.0" layoutY="444.0" mnemonicParsing="false" onAction="#addBook" prefHeight="39.0"
+                prefWidth="129.0" style="-fx-background-color: #348899;" text="Add Book" textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="20.0"/>
+            </font>
+        </Button>
+        <Button layoutX="458.0" layoutY="444.0" mnemonicParsing="false" onAction="#goBack" prefHeight="39.0"
+                prefWidth="129.0" style="-fx-background-color: #348899;" text="Go Back" textFill="WHITE">
+            <font>
+                <Font name="Helvetica Neue Light" size="20.0"/>
+            </font>
+        </Button>
+    </children>
 </AnchorPane>

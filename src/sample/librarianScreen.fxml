@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LibrarianController">
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.LibrarianController">
     <children>
         <Pane layoutX="36.0" layoutY="32.0" prefHeight="156.0" prefWidth="355.0" style="-fx-background-color: #343642;">
             <children>
-                <TextField fx:id="searchText" layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0" />
+                <TextField fx:id="searchText" layoutX="163.0" layoutY="24.0" prefHeight="27.0" prefWidth="150.0"/>
                 <Label layoutX="52.0" layoutY="26.0" text="Search for: " textFill="WHITE">
                     <font>
-                        <Font name="Helvetica Neue Light" size="18.0" />
+                        <Font name="Helvetica Neue Light" size="18.0"/>
                     </font>
                 </Label>
                 <Label layoutX="52.0" layoutY="67.0" text="Search in:" textFill="WHITE">
                     <font>
-                        <Font name="Helvetica Neue Light" size="18.0" />
+                        <Font name="Helvetica Neue Light" size="18.0"/>
                     </font>
                 </Label>
-                <ComboBox fx:id="comboBox" layoutX="163.0" layoutY="65.0" prefWidth="150.0" promptText="Select area..." />
-                <Button layoutX="235.0" layoutY="109.0" mnemonicParsing="false" onAction="#buildSearch" prefHeight="28.0" prefWidth="78.0" text="Go!">
+                <ComboBox fx:id="comboBox" layoutX="163.0" layoutY="65.0" prefWidth="150.0"
+                          promptText="Select area..."/>
+                <Button layoutX="235.0" layoutY="109.0" mnemonicParsing="false" onAction="#buildSearch"
+                        prefHeight="28.0" prefWidth="78.0" text="Go!">
                     <font>
-                        <Font name="Helvetica Neue Light" size="14.0" />
+                        <Font name="Helvetica Neue Light" size="14.0"/>
                     </font>
                 </Button>
             </children>
         </Pane>
         <Pane fx:id="placeholder" layoutX="36.0" layoutY="225.0" prefHeight="357.0" prefWidth="727.0">
-         <children>
-            <Button layoutX="619.0" layoutY="315.0" mnemonicParsing="false" onAction="#exportPDF" text="Export as PDF">
-               <font>
-                  <Font name="Helvetica Neue Light" size="14.0" />
-               </font>
-            </Button>
-         </children></Pane>
-      <Pane layoutX="563.0" layoutY="32.0" prefHeight="156.0" prefWidth="200.0" style="-fx-background-color: #962D3E;">
-         <children>
-            <Label layoutX="29.0" layoutY="14.0" text="Librarian Controls:" textFill="WHITE">
-               <font>
-                  <Font name="Helvetica Neue Light" size="18.0" />
-               </font>
-            </Label>
-            <Button layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#addBook" prefHeight="28.0" prefWidth="100.0" text="Add Book">
-               <font>
-                  <Font name="Helvetica Neue Light" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="50.0" layoutY="100.0" mnemonicParsing="false" onAction="#performCheckOut" prefHeight="28.0" prefWidth="100.0" text="Check Out">
-               <font>
-                  <Font name="Helvetica Neue Light" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
+            <children>
+                <Button layoutX="619.0" layoutY="315.0" mnemonicParsing="false" onAction="#exportPDF"
+                        text="Export as PDF">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+        <Pane layoutX="563.0" layoutY="32.0" prefHeight="156.0" prefWidth="200.0"
+              style="-fx-background-color: #962D3E;">
+            <children>
+                <Label layoutX="29.0" layoutY="14.0" text="Librarian Controls:" textFill="WHITE">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="18.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#addBook" prefHeight="28.0"
+                        prefWidth="100.0" text="Add Book">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="50.0" layoutY="100.0" mnemonicParsing="false" onAction="#performCheckOut"
+                        prefHeight="28.0" prefWidth="100.0" text="Check Out">
+                    <font>
+                        <Font name="Helvetica Neue Light" size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+        </Pane>
     </children>
 </AnchorPane>

@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Created by lukacrnjakovic on 4/27/17.
  */
-public class RegisterController implements Initializable, ControlledScreen{
+public class RegisterController implements Initializable, ControlledScreen {
     ScreensController myController;
 
     @FXML
@@ -33,7 +33,7 @@ public class RegisterController implements Initializable, ControlledScreen{
     PasswordField password;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
 
     }
 
@@ -51,47 +51,42 @@ public class RegisterController implements Initializable, ControlledScreen{
 
     public void enableAdminCode(ActionEvent actionEvent) {
         boolean selected = libCheck.isSelected();
-        if(selected){
+        if (selected) {
             libCode.setDisable(false);
-        }
-        else{
+        } else {
             libCode.setDisable(true);
         }
     }
 
     public void enterRegister(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             performRegistration();
         }
     }
 
-    private void performRegistration(){
+    private void performRegistration() {
         // WRITE NEW USER TO DB
         MySQLDatabase con;
-        if(Main.getDbConn()==null){
+        if (Main.getDbConn() == null) {
             Connection dbConn = null;
             con = myController.setConnectionProperties();
-            if(con.connect(dbConn)){
+            if (con.connect(dbConn)) {
                 System.out.println("Connected!");
                 Main.setDbConn(con);
-            }
-            else{
+            } else {
                 System.out.println("Not connected");
 
             }
-        }
-        else{
+        } else {
             con = Main.getDbConn();
         }
-        try{
-            if(libCode.getText().equals("hujak")){
+        try {
+            if (libCode.getText().equals("hujak")) {
                 con.regLib(fName.getText(), lName.getText(), email.getText(), username.getText(), password.getText());
-            }
-            else{
+            } else {
                 con.regUser(fName.getText(), lName.getText(), email.getText(), username.getText(), password.getText());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

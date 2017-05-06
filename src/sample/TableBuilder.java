@@ -1,20 +1,15 @@
 package sample;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
-
-import java.util.List;
 
 /**
  * Created by lukacrnjakovic on 4/28/17.
  */
 public class TableBuilder {
 
-    public TableView<DetailedBook> createTable(){
+    public TableView<DetailedBook> createTable() {
         TableView<DetailedBook> table = new TableView<>();
 
         TableColumn<DetailedBook, String> column1 = new TableColumn<>("ISBN");

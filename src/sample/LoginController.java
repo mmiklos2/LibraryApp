@@ -6,12 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import sample.ControlledScreen;
-import sample.ScreensController;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -21,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Created by lukacrnjakovic on 4/27/17.
  */
-public class LoginController implements Initializable, ControlledScreen{
+public class LoginController implements Initializable, ControlledScreen {
     ScreensController myController;
 
     @FXML
@@ -31,7 +27,7 @@ public class LoginController implements Initializable, ControlledScreen{
     PasswordField password;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
 
     }
 
@@ -48,38 +44,35 @@ public class LoginController implements Initializable, ControlledScreen{
     }
 
     public void enterSignIn(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER){
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             performLogin();
         }
     }
 
-    private void performLogin(){
+    private void performLogin() {
         // PERFORM AUTHENTICATION
         String role;
         MySQLDatabase con;
-        if(Main.getDbConn()==null){
+        if (Main.getDbConn() == null) {
             Connection dbConn = null;
             con = myController.setConnectionProperties();
-            if(con.connect(dbConn)){
+            if (con.connect(dbConn)) {
                 System.out.println("Connected!");
                 Main.setDbConn(con);
-            }
-            else{
+            } else {
                 System.out.println("Not connected");
 
             }
-        }
-        else{
+        } else {
             con = Main.getDbConn();
         }
 
-        try{
+        try {
             role = con.login(username.getText(), password.getText());
-            if(role.equals("U")) {
+            if (role.equals("U")) {
                 myController.setUsername(username.getText());
                 myController.setScreen(Main.USER_SCREEN);
-            }
-            else if(role.equals("L"))
+            } else if (role.equals("L"))
                 myController.setScreen(Main.LIBRARIAN_SCREEN);
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -89,8 +82,7 @@ public class LoginController implements Initializable, ControlledScreen{
                 alert.showAndWait();
 
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

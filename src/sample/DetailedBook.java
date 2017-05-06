@@ -1,10 +1,6 @@
 package sample;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-
-import java.util.ArrayList;
 
 /**
  * @author Boyz
@@ -30,8 +26,8 @@ public class DetailedBook {
         this.book_location = book_location;
         this.book_genre = book_genre;
         this.publisher_name = publisher_name;
-        this.authors=authors;
-        this.dateDue=dateDue;
+        this.authors = authors;
+        this.dateDue = dateDue;
     }
 
     public SimpleStringProperty getBook_genre() {
@@ -66,9 +62,9 @@ public class DetailedBook {
         return book_location;
     }
 
-    public void printInfo(){
-       System.out.println("AUTHOR:  "+" PUBLISHER:  "+" TITLE:  "+ " GENRE: "+" PUBLISHER YEAR: "+" COPIES: "+"  LOCATION:  "+ " ISBN:  ");
-       System.out.println(getAuthor().getValue()+"   "+getPublisher_name().getValue()+"   "+getBook_title().getValue()+"   "+getBook_genre().getValue()+"   "+getBook_publisher_year().getValue()+"   "+getBook_copies().getValue()+"   "+getBook_location().getValue()+" "+getBook_isbn().getValue());
+    public void printInfo() {
+        System.out.println("AUTHOR:  " + " PUBLISHER:  " + " TITLE:  " + " GENRE: " + " PUBLISHER YEAR: " + " COPIES: " + "  LOCATION:  " + " ISBN:  ");
+        System.out.println(getAuthor().getValue() + "   " + getPublisher_name().getValue() + "   " + getBook_title().getValue() + "   " + getBook_genre().getValue() + "   " + getBook_publisher_year().getValue() + "   " + getBook_copies().getValue() + "   " + getBook_location().getValue() + " " + getBook_isbn().getValue());
 
     }
 

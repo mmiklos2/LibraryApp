@@ -22,7 +22,7 @@ import java.util.Properties;
 /**
  * Created by lukacrnjakovic on 4/27/17.
  */
-public class ScreensController extends StackPane{
+public class ScreensController extends StackPane {
 
     private HashMap<String, Node> screens = new HashMap<>();
     private String username = "";
@@ -48,20 +48,15 @@ public class ScreensController extends StackPane{
         this.username = username;
     }
 
-    public MySQLDatabase setConnectionProperties(){
+    public MySQLDatabase setConnectionProperties() {
         Properties dbInfo = new Properties();
-        try
-        {
+        try {
             InputStream infoStream = new FileInputStream("src/sample/dbinfo.properties");
             dbInfo.load(infoStream);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("Property file not found!");
             System.exit(0);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("Error while reading the property file");
             System.exit(0);
         }
@@ -79,16 +74,16 @@ public class ScreensController extends StackPane{
             myScreenControler.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
     }
 
-    public boolean setScreen(final String name){
-        if(screens.get(name) != null) {
+    public boolean setScreen(final String name) {
+        if (screens.get(name) != null) {
             final DoubleProperty opacity = opacityProperty();
-            if(!getChildren().isEmpty()){
+            if (!getChildren().isEmpty()) {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(500),
@@ -108,8 +103,7 @@ public class ScreensController extends StackPane{
                                 }, new KeyValue(opacity, 0.0))
                 );
                 fade.play();
-            }
-            else{
+            } else {
                 setOpacity(0.0);
                 getChildren().add(screens.get(name));
                 Timeline fadein = new Timeline(
@@ -119,7 +113,7 @@ public class ScreensController extends StackPane{
                 fadein.play();
             }
             return true;
-        } else{
+        } else {
             System.out.println("Screen hasn't been loaded!");
             return false;
         }

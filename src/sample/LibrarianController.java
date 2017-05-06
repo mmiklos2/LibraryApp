@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +10,13 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  * Created by lukacrnjakovic on 4/28/17.
  */
-public class LibrarianController implements Initializable, ControlledScreen{
+public class LibrarianController implements Initializable, ControlledScreen {
     ScreensController myController;
     private List<DetailedBook> list = null;
     private TableView<DetailedBook> table = null;
@@ -36,11 +34,11 @@ public class LibrarianController implements Initializable, ControlledScreen{
     private Pane placeholder;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         comboBox.getItems().addAll("Authors", "Titles", "Publishers", "Genres");
     }
 
-    public void setScreenParent(ScreensController screenParent){
+    public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
@@ -48,11 +46,10 @@ public class LibrarianController implements Initializable, ControlledScreen{
         TableBuilder tb = new TableBuilder();
         String textValue;
         String comboValue;
-        if(comboBox.getValue() != null){
+        if (comboBox.getValue() != null) {
             textValue = searchText.getText();
             comboValue = comboBox.getValue().toString();
-        }
-        else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
@@ -61,14 +58,14 @@ public class LibrarianController implements Initializable, ControlledScreen{
             return;
         }
 
-        ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
+        ConcreteSearcher cs = new ConcreteSearcher(Main.getDbConn());
         list = cs.search(textValue, comboValue, false, "");
         pdfb = new PDFBuilder(list);
         table = tb.createTable();
         table.setRowFactory(tv -> {
-            TableRow<DetailedBook>db=new TableRow<>();
-            db.setOnMouseClicked(event ->{
-                if(!db.isEmpty() && event.getButton()== MouseButton.PRIMARY && event.getClickCount()==2){
+            TableRow<DetailedBook> db = new TableRow<>();
+            db.setOnMouseClicked(event -> {
+                if (!db.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     myController.setIsbn(db.getItem().getBook_isbn().getValue());
                 }
             });
@@ -80,7 +77,7 @@ public class LibrarianController implements Initializable, ControlledScreen{
 
     }
 
-    private Node createPage(int pageIndex){
+    private Node createPage(int pageIndex) {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, list.size());
         table.setItems(FXCollections.observableArrayList(list.subList(fromIndex, toIndex)));
@@ -97,14 +94,13 @@ public class LibrarianController implements Initializable, ControlledScreen{
     }
 
     public void exportPDF(ActionEvent actionEvent) {
-        if(list == null){
+        if (list == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("You must populate the table first!");
             alert.showAndWait();
-        }
-        else{
+        } else {
             pdfb.populatePDF();
         }
     }

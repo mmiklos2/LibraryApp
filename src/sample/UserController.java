@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,14 +40,14 @@ public class UserController implements Initializable, ControlledScreen {
     @FXML
     private Pane placeholder;
 
-    private boolean counter=true;
+    private boolean counter = true;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         comboBox.getItems().addAll("Authors", "Titles", "Publishers", "Genres");
     }
 
-    public void setScreenParent(ScreensController screenParent){
+    public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
@@ -60,11 +59,10 @@ public class UserController implements Initializable, ControlledScreen {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         Alert alert_loan = new Alert(Alert.AlertType.WARNING);
 
-        if(comboBox.getValue() != null){
+        if (comboBox.getValue() != null) {
             textValue = searchText.getText();
             comboValue = comboBox.getValue().toString();
-        }
-        else{
+        } else {
 
             alert.setTitle("Warning");
             alert.setHeaderText(null);
@@ -74,15 +72,14 @@ public class UserController implements Initializable, ControlledScreen {
         }
 
 
-        if(rentedRadio.isSelected()){
+        if (rentedRadio.isSelected()) {
             rented = true;
-        }
-        else{
+        } else {
             rented = false;
         }
 
 
-        ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
+        ConcreteSearcher cs = new ConcreteSearcher(Main.getDbConn());
         list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
         pdfb = new PDFBuilder(list);
         table = tb.createTable();
@@ -91,69 +88,71 @@ public class UserController implements Initializable, ControlledScreen {
         placeholder.getChildren().add(pagination);
 
 
-           if (rented == true || allRadio.isSelected() == true) {
+        if (rented == true || allRadio.isSelected() == true) {
 
-               ArrayList<String> values = new ArrayList<>();
-               Date db_Date = null;
-               ArrayList<ArrayList<String>> results1 = null;
-               ArrayList<String> wurf = new ArrayList<>();
-               //////////
+            ArrayList<String> values = new ArrayList<>();
+            Date db_Date = null;
+            ArrayList<ArrayList<String>> results1 = null;
+            ArrayList<String> wurf = new ArrayList<>();
+            //////////
 
-               wurf.add(this.myController.getUsername());
-               String user_id = "SELECT user_id FROM user where user_username=?";
-               results1 = Main.getDbConn().getData(user_id, wurf, false);
-               values.add(results1.get(1).get(0));
-               //////////////
+            wurf.add(this.myController.getUsername());
+            String user_id = "SELECT user_id FROM user where user_username=?";
+            results1 = Main.getDbConn().getData(user_id, wurf, false);
+            values.add(results1.get(1).get(0));
+            //////////////
 
-               Date today = Calendar.getInstance().getTime();
-               DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-               DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-               /////
+            Date today = Calendar.getInstance().getTime();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            /////
 
-               String tod = df.format(today) + " 20:00:00";
-               Date today_date = null;
-               try {
-                   today_date = (Date) df1.parse(tod);
-               } catch (ParseException e) {
-                   e.printStackTrace();
-               }
-               String date = "SELECT date_due FROM books_on_loan WHERE user_id=?";
-               ///////////
-               ArrayList<ArrayList<String>> results = Main.getDbConn().getData(date, values, false);
-               for (int i = 1; i < results.size(); i++) {
-                   String dbDate = results.get(i).get(0).substring(0, results.get(i).get(0).indexOf("."));
+            String tod = df.format(today) + " 20:00:00";
+            Date today_date = null;
+            try {
+                today_date = (Date) df1.parse(tod);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String date = "SELECT date_due FROM books_on_loan WHERE user_id=?";
+            ///////////
+            ArrayList<ArrayList<String>> results = Main.getDbConn().getData(date, values, false);
+            for (int i = 1; i < results.size(); i++) {
+                String dbDate = results.get(i).get(0).substring(0, results.get(i).get(0).indexOf("."));
 
-                   ///////////
-                   try {
-                       db_Date = (Date) df1.parse(dbDate);
+                ///////////
+                try {
+                    db_Date = (Date) df1.parse(dbDate);
 
-                   } catch (ParseException e) {
-                       e.printStackTrace();
-                   }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-                   if (db_Date.compareTo(today_date) > 0) {
-                   } else if (db_Date.compareTo(today_date) < 0) {
-                        if(counter){
-                            counter=false;
-                       alert_loan.setTitle("Rented Books");
-                       alert_loan.setContentText("You have Late Loans, Please check your books!!");
-                       alert_loan.showAndWait();
-                       return;}
-                   } else {
-                       if(counter){
-                           counter=false;
-                       alert_loan.setTitle("Rented Books");
-                       alert_loan.setContentText("You have to return book today!!");
-                       alert_loan.showAndWait();
-                       return;}
-                   }
-               }
+                if (db_Date.compareTo(today_date) > 0) {
+                } else if (db_Date.compareTo(today_date) < 0) {
+                    if (counter) {
+                        counter = false;
+                        alert_loan.setTitle("Rented Books");
+                        alert_loan.setContentText("You have Late Loans, Please check your books!!");
+                        alert_loan.showAndWait();
+                        return;
+                    }
+                } else {
+                    if (counter) {
+                        counter = false;
+                        alert_loan.setTitle("Rented Books");
+                        alert_loan.setContentText("You have to return book today!!");
+                        alert_loan.showAndWait();
+                        return;
+                    }
+                }
+            }
 
-           }
+        }
 
     }
 
-    private Node createPage(int pageIndex){
+    private Node createPage(int pageIndex) {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, list.size());
         table.setItems(FXCollections.observableArrayList(list.subList(fromIndex, toIndex)));
@@ -163,14 +162,13 @@ public class UserController implements Initializable, ControlledScreen {
 
 
     public void exportPDF(ActionEvent actionEvent) {
-        if(list == null){
+        if (list == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("You must populate the table first!");
             alert.showAndWait();
-        }
-        else{
+        } else {
             pdfb.populatePDF();
         }
     }
