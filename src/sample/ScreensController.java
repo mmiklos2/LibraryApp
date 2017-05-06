@@ -52,7 +52,7 @@ public class ScreensController extends StackPane{
         Properties dbInfo = new Properties();
         try
         {
-            InputStream infoStream = new FileInputStream("/Users/lukacrnjakovic/IdeaProjects/LibraryAppRak/src/sample/dbinfo.properties");
+            InputStream infoStream = new FileInputStream("src/sample/dbinfo.properties");
             dbInfo.load(infoStream);
         }
         catch (FileNotFoundException e)
