@@ -35,7 +35,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.LOGIN_SCREEN, Main.LOGIN_SCREEN_FXML);
         mainContainer.loadScreen(Main.REGISTER_SCREEN, Main.REGISTER_SCREEN_FXML);
@@ -50,15 +50,15 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        if(Main.getDbConn()!=null) {
-            primaryStage.setOnCloseRequest(we -> {
+        primaryStage.setOnCloseRequest(we -> {
+            if (Main.getDbConn() != null) {
                 if (Main.getDbConn().closeConnection()) {
                     System.out.println("Connection closed!");
                 } else {
                     System.out.println("Connection closing failed!");
                 }
-            });
-        }
+            }
+        });
     }
 
     public static void main(String[] args) {

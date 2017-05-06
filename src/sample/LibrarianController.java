@@ -24,6 +24,7 @@ public class LibrarianController implements Initializable, ControlledScreen{
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
+    PDFBuilder pdfb;
 
     @FXML
     private ComboBox comboBox;
@@ -61,9 +62,8 @@ public class LibrarianController implements Initializable, ControlledScreen{
         }
 
         ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
-        System.out.println(textValue + ", " + comboValue);
         list = cs.search(textValue, comboValue, false, "");
-        System.out.println("Size : " + list.size());
+        pdfb = new PDFBuilder(list);
         table = tb.createTable();
         table.setRowFactory(tv -> {
             TableRow<DetailedBook>db=new TableRow<>();
@@ -105,7 +105,7 @@ public class LibrarianController implements Initializable, ControlledScreen{
             alert.showAndWait();
         }
         else{
-            // pdfbuilder
+            pdfb.populatePDF();
         }
     }
 }

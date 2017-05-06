@@ -24,6 +24,7 @@ public class UserController implements Initializable, ControlledScreen {
     private TableView<DetailedBook> table = null;
     private final static int rowsPerPage = 10;
     private final static int dataSize = 10_023;
+    PDFBuilder pdfb;
 
     @FXML
     private TextField searchText;
@@ -83,6 +84,7 @@ public class UserController implements Initializable, ControlledScreen {
 
         ConcreteSearcher cs=new ConcreteSearcher(Main.getDbConn());
         list = cs.search(textValue, comboValue, rented, this.myController.getUsername());
+        pdfb = new PDFBuilder(list);
         table = tb.createTable();
         Pagination pagination = new Pagination((list.size() / rowsPerPage + 1), 0);
         pagination.setPageFactory(this::createPage);
@@ -169,7 +171,7 @@ public class UserController implements Initializable, ControlledScreen {
             alert.showAndWait();
         }
         else{
-            // pdfbuilder
+            pdfb.populatePDF();
         }
     }
 }

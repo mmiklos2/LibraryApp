@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PDFBuilder {
-    private static String FILE = "src\\";
+
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -21,7 +21,7 @@ public class PDFBuilder {
             Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
-    File f= new File( "src\\AllBooks.pdf");
+    File f= new File( "AllBooks.pdf");
     int counter=0;
     private List<DetailedBook> dba=new ArrayList<DetailedBook>() {
     };
@@ -81,7 +81,7 @@ public class PDFBuilder {
     private  void addContent(Document document) throws DocumentException {
         Anchor anchor = new Anchor("Books in Library", catFont);
         anchor.setName("Books in Library");
-        Chapter catPart = new Chapter(new Paragraph(anchor),0);
+        Chapter catPart = new Chapter(new Paragraph(anchor),1);
 
         Paragraph subPara = new Paragraph();
         Section subCatPart = catPart.addSection(subPara);
@@ -95,12 +95,12 @@ public class PDFBuilder {
 
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE+"AllBooks_Copy"+"("+counter+")"+".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("AllBooks_Copy"+"("+counter+")"+".pdf"));
             document.open();
             addMetaData(document);
             addContent(document);
             document.close();
-            f= new File(FILE+"AllBooks_Copy"+"("+counter+")"+".pdf");
+            f= new File("AllBooks_Copy"+"("+counter+")"+".pdf");
             counter++;
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class PDFBuilder {
     }else{
             try {
                 Document document = new Document();
-                PdfWriter.getInstance(document, new FileOutputStream(FILE+"AllBooks.pdf"));
+                PdfWriter.getInstance(document, new FileOutputStream("AllBooks.pdf"));
                 document.open();
                 addMetaData(document);
                 addContent(document);
