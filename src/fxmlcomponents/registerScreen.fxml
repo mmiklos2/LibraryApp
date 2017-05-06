@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane onKeyPressed="#enterRegister" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #979C9C;"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.RegisterController">
+            fx:controller="fxmlcomponents.RegisterController">
     <children>
         <Pane layoutX="202.0" layoutY="36.0" prefHeight="538.0" prefWidth="397.0"
               style="-fx-background-color: #F2EBC7; -fx-background-radius: 10px;">
@@ -16,7 +16,7 @@
                 <ImageView fitHeight="98.0" fitWidth="105.0" layoutX="150.0" layoutY="14.0" pickOnBounds="true"
                            preserveRatio="true">
                     <image>
-                        <Image url="@book_icon.png"/>
+                        <Image url="@../media/book_icon.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="66.0" layoutY="133.0" text="First Name:">

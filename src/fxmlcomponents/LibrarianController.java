@@ -1,5 +1,6 @@
-package sample;
+package fxmlcomponents;
 
+import dataobjects.DetailedBook;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+import utilities.ConcreteSearcher;
+import utilities.PDFBuilder;
+import utilities.TableBuilder;
 
 import java.net.URL;
 import java.util.List;

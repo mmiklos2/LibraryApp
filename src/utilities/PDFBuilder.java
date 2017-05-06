@@ -1,9 +1,10 @@
-package sample;
+package utilities;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import dataobjects.DetailedBook;
 
 import java.io.File;
 import java.io.FileOutputStream;

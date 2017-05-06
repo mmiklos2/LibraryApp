@@ -1,5 +1,6 @@
-package sample;
+package utilities;
 
+import dataobjects.*;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;

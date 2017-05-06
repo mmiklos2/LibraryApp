@@ -1,4 +1,4 @@
-package sample;
+package fxmlcomponents;
 
 /**
  * Created by lukacrnjakovic on 4/27/17.

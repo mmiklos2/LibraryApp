@@ -1,9 +1,10 @@
-package sample;
+package fxmlcomponents;
 
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.MySQLDatabase;
 
 public class Main extends Application {
 

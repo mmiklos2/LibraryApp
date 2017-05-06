@@ -1,5 +1,6 @@
-package sample;
+package utilities;
 
+import dataobjects.DetailedBook;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

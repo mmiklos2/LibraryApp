@@ -1,13 +1,14 @@
-package sample;
+package fxmlcomponents;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import utilities.MySQLDatabase;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -17,11 +18,17 @@ import java.util.ResourceBundle;
 /**
  * Created by lukacrnjakovic on 4/27/17.
  */
-public class LoginController implements Initializable, ControlledScreen {
+public class RegisterController implements Initializable, ControlledScreen {
     ScreensController myController;
 
     @FXML
-    TextField username;
+    CheckBox libCheck;
+
+    @FXML
+    TextField libCode;
+
+    @FXML
+    TextField fName, lName, email, username;
 
     @FXML
     PasswordField password;
@@ -35,23 +42,31 @@ public class LoginController implements Initializable, ControlledScreen {
         myController = screenParent;
     }
 
-    public void goToRegister(ActionEvent actionEvent) {
-        myController.setScreen(Main.REGISTER_SCREEN);
+    public void goToLogin(ActionEvent actionEvent) {
+        myController.setScreen(Main.LOGIN_SCREEN);
     }
 
-    public void triggerLogin(ActionEvent actionEvent) {
-        performLogin();
+    public void triggerRegistration(ActionEvent actionEvent) {
+        performRegistration();
     }
 
-    public void enterSignIn(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            performLogin();
+    public void enableAdminCode(ActionEvent actionEvent) {
+        boolean selected = libCheck.isSelected();
+        if (selected) {
+            libCode.setDisable(false);
+        } else {
+            libCode.setDisable(true);
         }
     }
 
-    private void performLogin() {
-        // PERFORM AUTHENTICATION
-        String role;
+    public void enterRegister(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            performRegistration();
+        }
+    }
+
+    private void performRegistration() {
+        // WRITE NEW USER TO DB
         MySQLDatabase con;
         if (Main.getDbConn() == null) {
             Connection dbConn = null;
@@ -66,25 +81,16 @@ public class LoginController implements Initializable, ControlledScreen {
         } else {
             con = Main.getDbConn();
         }
-
         try {
-            role = con.login(username.getText(), password.getText());
-            if (role.equals("U")) {
-                myController.setUsername(username.getText());
-                myController.setScreen(Main.USER_SCREEN);
-            } else if (role.equals("L"))
-                myController.setScreen(Main.LIBRARIAN_SCREEN);
-            else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText(null);
-                alert.setContentText("Username or password incorrect!");
-                alert.showAndWait();
-
+            if (libCode.getText().equals("hujak")) {
+                con.regLib(fName.getText(), lName.getText(), email.getText(), username.getText(), password.getText());
+            } else {
+                con.regUser(fName.getText(), lName.getText(), email.getText(), username.getText(), password.getText());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        myController.setScreen(Main.LOGIN_SCREEN);
     }
 }

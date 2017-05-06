@@ -1,4 +1,4 @@
-package sample;
+package dataobjects;
 
 import javafx.beans.property.SimpleStringProperty;
 

@@ -1,4 +1,4 @@
-package sample;
+package fxmlcomponents;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import utilities.MySQLDatabase;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,7 +52,7 @@ public class ScreensController extends StackPane {
     public MySQLDatabase setConnectionProperties() {
         Properties dbInfo = new Properties();
         try {
-            InputStream infoStream = new FileInputStream("src/sample/dbinfo.properties");
+            InputStream infoStream = new FileInputStream("src/dbconnection/dbinfo.properties");
             dbInfo.load(infoStream);
         } catch (FileNotFoundException e) {
             System.out.println("Property file not found!");

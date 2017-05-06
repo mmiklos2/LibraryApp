@@ -1,4 +1,4 @@
-package sample;
+package dataobjects;
 
 public class Publisher {
     public int publisher_id;

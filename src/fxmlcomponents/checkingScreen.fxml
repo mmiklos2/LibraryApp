@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('sample/library.jpg');"
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url('media/library.jpg');"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.CheckingController">
+            fx:controller="fxmlcomponents.CheckingController">
     <children>
         <Pane layoutX="24.0" layoutY="50.0" prefHeight="189.0" prefWidth="363.0" style="-fx-background-color: #962D3E;">
             <children>

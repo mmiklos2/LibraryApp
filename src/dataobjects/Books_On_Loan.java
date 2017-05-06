@@ -1,4 +1,4 @@
-package sample;
+package dataobjects;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package sample;
+package dataobjects;
 
 public class Genres {
     private int genre_id;
