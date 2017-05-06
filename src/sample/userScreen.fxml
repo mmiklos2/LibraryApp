@@ -45,6 +45,13 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="placeholder" layoutX="36.0" layoutY="225.0" prefHeight="357.0" prefWidth="727.0" />
+      <Pane fx:id="placeholder" layoutX="36.0" layoutY="225.0" prefHeight="357.0" prefWidth="727.0">
+         <children>
+            <Button layoutX="619.0" layoutY="315.0" mnemonicParsing="false" onAction="#exportPDF" text="Export as PDF">
+               <font>
+                  <Font name="Helvetica Neue Light" size="14.0" />
+               </font>
+            </Button>
+         </children></Pane>
    </children>
 </AnchorPane>

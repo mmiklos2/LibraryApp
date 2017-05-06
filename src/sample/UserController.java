@@ -160,4 +160,16 @@ public class UserController implements Initializable, ControlledScreen {
     }
 
 
+    public void exportPDF(ActionEvent actionEvent) {
+        if(list == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("You must populate the table first!");
+            alert.showAndWait();
+        }
+        else{
+            // pdfbuilder
+        }
+    }
 }
